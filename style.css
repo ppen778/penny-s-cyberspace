@@ -196,7 +196,7 @@ a{color:inherit}
 .deco:hover img{transform:scale(1.07) rotate(1deg);filter:drop-shadow(0 16px 30px rgba(30,60,110,.32))}
 .deco-phone-line{
   right:299px;top:34px;width:190px;
-  z-index:95;
+  z-index:12;
   pointer-events:none;
   animation:bob 5.5s .8s ease-in-out infinite;
 }
