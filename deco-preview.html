@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桌面新装饰 ✦ 四版摆放方案</title>
+<style>
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:linear-gradient(180deg,#FDEFF4,#F3F0FB);
+    font-family:"Microsoft YaHei",sans-serif;
+    padding:34px 30px 60px;color:#1C1B18;
+  }
+  h1{font-family:'ZKuaile';font-size:26px;font-weight:400;letter-spacing:.02em;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:6px;line-height:1.9}
+  .sub b{color:#C24D7E}
+  .legend{font-size:12px;color:#5A5548;background:#fff;border:1px solid rgba(28,27,24,.16);border-radius:10px;padding:8px 14px;margin:0 0 26px;line-height:1.9}
+  .legend i{font-style:normal;color:#C24D7E}
+  .variant{margin-bottom:34px}
+  .vhead{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+  .vhead h2{font-family:'ZKuaile';font-size:19px;font-weight:400}
+  .vhead p{font-size:12.5px;color:#6B6353}
+  .stage{
+    position:relative;width:1440px;height:900px;overflow:hidden;
+    background:linear-gradient(180deg,#FDEFF4 0%,#F3F0FB 60%,#F1F0FB 100%);
+    border:2px solid rgba(28,27,24,.7);border-radius:14px;
+    box-shadow:5px 5px 0 rgba(28,27,24,.8);
+  }
+  .stage .win-zone{
+    position:absolute;border-radius:10px;border:1.5px dashed rgba(28,27,24,.28);
+    background:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:rgba(28,27,24,.38);letter-spacing:.05em;
+  }
+  .stage .icon-zone{
+    position:absolute;border-radius:12px;border:1.5px dashed rgba(28,27,24,.22);
+    background:rgba(231,142,248,.08);display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:rgba(28,27,24,.36);
+  }
+  .stage .old{
+    position:absolute;opacity:.42;pointer-events:none;
+  }
+  .newdeco{position:absolute;cursor:pointer;transition:transform .25s}
+  .newdeco img{
+    display:block;width:100%;height:auto;
+    filter:drop-shadow(0 10px 20px rgba(30,60,110,.25));
+    transition:transform .25s;
+  }
+  .newdeco:hover{transform:scale(1.08) rotate(-1.5deg);z-index:20}
+  .newdeco:hover img{filter:drop-shadow(0 16px 30px rgba(30,60,110,.4))}
+  .stagelabel{
+    position:absolute;left:14px;top:12px;z-index:30;
+    font-family:'ZKuaile';font-size:13px;color:#fff;background:#1C1B18;
+    border-radius:8px;padding:4px 12px;letter-spacing:.05em;
+  }
+  .deconame{
+    position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+    font-size:10px;color:rgba(28,27,24,.5);background:#fff;border:1px solid rgba(28,27,24,.18);
+    border-radius:6px;padding:1px 7px;white-space:nowrap;z-index:5;
+  }
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-7px) rotate(var(--rot,0deg))}}
+  .n1{animation:bob 5.5s .3s ease-in-out infinite}
+  .n2{animation:bob 4.8s .8s ease-in-out infinite}
+  .n3{animation:bob 6.2s .2s ease-in-out infinite}
+  .n4{animation:bob 5s 1.1s ease-in-out infinite}
+</style>
+</head>
+<body>
+  <h1>桌面新装饰 ✦ 四版摆放方案</h1>
+  <div class="sub">四张新素材（coffee / hello / 天使娃娃 / 蓝紫色）已抠成透明 PNG 并锐化。<b>灰色虚线块</b>是窗口与图标区，<b>半透明元素</b>是原有装饰（路灯、粉色电话、我爱你），方便你判断会不会互相遮挡。</div>
+  <div class="legend">素材名称：<i>coffee</i>＝咖啡杯 · <i>hello</i>＝英文贴纸 · <i>angel</i>＝天使娃娃 · <i>blu</i>＝蓝紫色图案。悬停任何新素材可放大预览。</div>
+
+  <!-- 方案 1 -->
+  <div class="variant">
+    <div class="vhead"><h2>方案 1 · 散落错落</h2><p>四个角各自散开，左右平衡，跟现有贴纸形成「满而不挤」的错落感。</p></div>
+    <div class="stage">
+      <div class="stagelabel">方案 1</div>
+      <div class="win-zone" style="left:760px;top:56px;width:290px;height:380px">关于我窗口</div>
+      <div class="win-zone" style="left:1092px;top:56px;width:300px;height:560px">歌单窗口</div>
+      <div class="win-zone" style="left:1092px;top:392px;width:300px;height:250px">社媒窗口</div>
+      <div class="icon-zone" style="left:14px;top:56px;width:190px;height:400px">六个女孩图标区</div>
+      <div class="old"><img src="assets/deco/lamp.png" style="width:140px;height:auto;position:absolute;left:432px;top:34px"></div>
+      <div class="old"><img src="assets/deco/phone.png" style="width:210px;height:auto;position:absolute;left:518px;top:250px"></div>
+      <div class="old"><img src="assets/deco/love.png" style="width:120px;height:auto;position:absolute;left:26px;bottom:72px"></div>
+      <div class="newdeco n1" style="left:235px;top:75px;width:150px;--rot:3deg"><img src="assets/deco/hello.png" alt="hello"><span class="deconame">hello</span></div>
+      <div class="newdeco n2" style="left:600px;top:80px;width:150px;--rot:-2.5deg"><img src="assets/deco/angel.png" alt="天使娃娃"><span class="deconame">angel</span></div>
+      <div class="newdeco n3" style="left:300px;top:530px;width:200px;--rot:-2deg"><img src="assets/deco/coffee.png" alt="coffee"><span class="deconame">coffee</span></div>
+      <div class="newdeco n4" style="left:580px;top:700px;width:220px;--rot:2deg"><img src="assets/deco/blu.png" alt="蓝紫色"><span class="deconame">blu</span></div>
+    </div>
+  </div>
+
+  <!-- 方案 2 -->
+  <div class="variant">
+    <div class="vhead"><h2>方案 2 · 左下角拼贴组</h2><p>四张贴纸在左下角叠成一组杂志拼贴，互相压角、错落堆放，拼贴感最强。</p></div>
+    <div class="stage">
+      <div class="stagelabel">方案 2</div>
+      <div class="win-zone" style="left:760px;top:56px;width:290px;height:380px">关于我窗口</div>
+      <div class="win-zone" style="left:1092px;top:56px;width:300px;height:560px">歌单窗口</div>
+      <div class="win-zone" style="left:1092px;top:392px;width:300px;height:250px">社媒窗口</div>
+      <div class="icon-zone" style="left:14px;top:56px;width:190px;height:400px">六个女孩图标区</div>
+      <div class="old"><img src="assets/deco/lamp.png" style="width:140px;height:auto;position:absolute;left:432px;top:34px"></div>
+      <div class="old"><img src="assets/deco/phone.png" style="width:210px;height:auto;position:absolute;left:518px;top:250px"></div>
+      <div class="old"><img src="assets/deco/love.png" style="width:120px;height:auto;position:absolute;left:26px;bottom:72px"></div>
+      <div class="newdeco n1" style="left:165px;top:620px;width:210px;--rot:-2.5deg"><img src="assets/deco/coffee.png" alt="coffee"><span class="deconame">coffee</span></div>
+      <div class="newdeco n2" style="left:375px;top:650px;width:220px;--rot:2deg"><img src="assets/deco/blu.png" alt="蓝紫色"><span class="deconame">blu</span></div>
+      <div class="newdeco n3" style="left:250px;top:505px;width:150px;--rot:4deg"><img src="assets/deco/hello.png" alt="hello"><span class="deconame">hello</span></div>
+      <div class="newdeco n4" style="left:340px;top:380px;width:145px;--rot:-3deg"><img src="assets/deco/angel.png" alt="天使娃娃"><span class="deconame">angel</span></div>
+    </div>
+  </div>
+
+  <!-- 方案 3 -->
+  <div class="variant">
+    <div class="vhead"><h2>方案 3 · 左侧竖线故事</h2><p>四张贴纸沿左侧从上到下排成一条「生活故事线」，像桌面上的个人时间轴。</p></div>
+    <div class="stage">
+      <div class="stagelabel">方案 3</div>
+      <div class="win-zone" style="left:760px;top:56px;width:290px;height:380px">关于我窗口</div>
+      <div class="win-zone" style="left:1092px;top:56px;width:300px;height:560px">歌单窗口</div>
+      <div class="win-zone" style="left:1092px;top:392px;width:300px;height:250px">社媒窗口</div>
+      <div class="icon-zone" style="left:14px;top:56px;width:190px;height:400px">六个女孩图标区</div>
+      <div class="old"><img src="assets/deco/lamp.png" style="width:140px;height:auto;position:absolute;left:432px;top:34px"></div>
+      <div class="old"><img src="assets/deco/phone.png" style="width:210px;height:auto;position:absolute;left:518px;top:250px"></div>
+      <div class="old"><img src="assets/deco/love.png" style="width:120px;height:auto;position:absolute;left:26px;bottom:72px"></div>
+      <div class="newdeco n1" style="left:235px;top:80px;width:165px;--rot:-1.5deg"><img src="assets/deco/angel.png" alt="天使娃娃"><span class="deconame">angel</span></div>
+      <div class="newdeco n2" style="left:260px;top:350px;width:150px;--rot:2.5deg"><img src="assets/deco/hello.png" alt="hello"><span class="deconame">hello</span></div>
+      <div class="newdeco n3" style="left:265px;top:560px;width:195px;--rot:-2deg"><img src="assets/deco/coffee.png" alt="coffee"><span class="deconame">coffee</span></div>
+      <div class="newdeco n4" style="left:240px;top:745px;width:225px;--rot:1.5deg"><img src="assets/deco/blu.png" alt="蓝紫色"><span class="deconame">blu</span></div>
+    </div>
+  </div>
+
+  <!-- 方案 4 -->
+  <div class="variant">
+    <div class="vhead"><h2>方案 4 · 环抱中心</h2><p>贴纸绕开中间的粉色电话与路灯，在左右上下形成「环抱」构图，中心留白最多。</p></div>
+    <div class="stage">
+      <div class="stagelabel">方案 4</div>
+      <div class="win-zone" style="left:760px;top:56px;width:290px;height:380px">关于我窗口</div>
+      <div class="win-zone" style="left:1092px;top:56px;width:300px;height:560px">歌单窗口</div>
+      <div class="win-zone" style="left:1092px;top:392px;width:300px;height:250px">社媒窗口</div>
+      <div class="icon-zone" style="left:14px;top:56px;width:190px;height:400px">六个女孩图标区</div>
+      <div class="old"><img src="assets/deco/lamp.png" style="width:140px;height:auto;position:absolute;left:432px;top:34px"></div>
+      <div class="old"><img src="assets/deco/phone.png" style="width:210px;height:auto;position:absolute;left:518px;top:250px"></div>
+      <div class="old"><img src="assets/deco/love.png" style="width:120px;height:auto;position:absolute;left:26px;bottom:72px"></div>
+      <div class="newdeco n1" style="left:610px;top:70px;width:215px;--rot:1.5deg"><img src="assets/deco/blu.png" alt="蓝紫色"><span class="deconame">blu</span></div>
+      <div class="newdeco n2" style="left:770px;top:470px;width:150px;--rot:-2deg"><img src="assets/deco/angel.png" alt="天使娃娃"><span class="deconame">angel</span></div>
+      <div class="newdeco n3" style="left:225px;top:560px;width:150px;--rot:2.5deg"><img src="assets/deco/hello.png" alt="hello"><span class="deconame">hello</span></div>
+      <div class="newdeco n4" style="left:385px;top:700px;width:200px;--rot:-2.5deg"><img src="assets/deco/coffee.png" alt="coffee"><span class="deconame">coffee</span></div>
+    </div>
+  </div>
+</body>
+</html>

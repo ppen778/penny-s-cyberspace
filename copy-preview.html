@@ -50,14 +50,14 @@
     display:inline-block;font-size:10px;letter-spacing:.12em;color:#8A5A78;
     margin:5px 0 10px;background:#FCE8F1;border-radius:5px;padding:3px 9px;
   }
-  .ms .pclip{max-height:76px;overflow:hidden;position:relative;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
-  .ms .pclip::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:30px;
-    background:linear-gradient(180deg,rgba(255,255,255,0),#fff);
-    pointer-events:none;transition:opacity .3s;
+  .ms .pquote{
+    font-family:'ZKuaile';font-size:15px;line-height:1.9;color:#C24D7E;
+    padding:3px 4px 5px 14px;border-left:3px solid #F2619C;margin:2px 0 6px;
+    background:linear-gradient(90deg,rgba(242,97,156,.08),transparent 80%);
+    border-radius:0 8px 8px 0;
   }
+  .ms .pclip{max-height:0;overflow:hidden;position:relative;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
   .ms.open .pclip{max-height:6000px}
-  .ms.open .pclip::after{opacity:0}
   .ms .pclip .inner{white-space:pre-line;font-size:14.5px;line-height:2.1;color:#2A2A2A}
   .ms .pexp{
     display:inline-flex;align-items:center;gap:5px;margin-top:10px;
@@ -72,13 +72,14 @@
 <body>
   <div class="wrap">
     <h1>文案页方案 A 定稿预览</h1>
-    <div class="sub">手稿便签 + <b>点击展开</b>：收起时只露出两三行，点开整篇手稿（或点下方小胶囊）阅读全文，再点一次收起。</div>
+    <div class="sub">手稿便签 + <b>点击展开</b>：收起时只显示全文的<b>中心句</b>（不重复标题），点开整篇手稿（或点下方小胶囊）阅读全文，再点一次收起。</div>
     <div class="hint">✦ 悬停：纸张摆正上浮、高光扫过 · 点击：展开 / 收起</div>
 
     <div class="ms">
       <div class="paper">
         <div class="ptitle">《暖阳万物藏》· 李昀锐专版</div>
         <div class="ptag">Copywriting ✦ 娱乐封面</div>
+        <div class="pquote">「家人闲坐，灯火可亲」，幸福把寡淡无味的初冬煮成了茗香四溢，恰似冬日暖阳，好日常在。</div>
         <div class="pclip"><div class="inner">暖阳万物藏 / 暖自心生，境随心转
 
 深秋迟暮，新冬可期。季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。
@@ -94,6 +95,7 @@
       <div class="paper">
         <div class="ptitle">《沉浸式种地？谁的 DNA 又动了！》</div>
         <div class="ptag">Copywriting ✦ 深度解读</div>
+        <div class="pquote">田园剧综的出现，正是抓住了当下观众对于慢生活的向往，为观众提供了脱离职场、回归家庭、享受生活的场域。</div>
         <div class="pclip"><div class="inner">最近，一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，豆瓣评分高达 8.5，这部固定班底成员只有 10 个"小糊豆"的"小破综"成为了无数年轻人闲暇之余的新晋"电子榨菜"。
 
 从《向往的生活》《种地吧》等主打田园治愈的综艺，到《去有风的地方》《卿卿日常》等剧集，亲近乡村生活的创作风从综艺刮到影视剧，在大众文化审美需求多元化的当下，田园剧综构成影视市场一股不可忽视的力量。那么，在众多强设定、快节奏的"爽"剧中，田园牧歌式的剧综究竟为什么能够脱颖而出，大受欢迎？
@@ -107,6 +109,7 @@
       <div class="paper">
         <div class="ptitle">《摘下耳机是新世纪的脱帽礼》</div>
         <div class="ptag">Essay ✦ 随笔</div>
+        <div class="pquote">戴上和取下耳机，在现代人的生活习惯里逐渐变成了社交开关——戴上耳机，别人就会默认你处于「需要一个人」的状态。</div>
         <div class="pclip"><div class="inner">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣，对我来说，耳机里的快乐是最低成本的快乐，音乐带给我的愉悦感确实拯救了我日常生活中很多"好像完了"的时刻。
 
 "手机里最不能删的app一定是网易云，真是我的精神食粮，每天诸事不顺的话，给自己一首歌或者几首歌的机会活过来，亲身体验的最有效的起死回生的方法，戴上耳机就仅仅只是音乐和心的交流，隔绝这个世界，浑身舒畅。"2020年记录在微博的一段，当时我还在上高中，学校里不允许使用手机，所以我在淘宝上花几十块钱买了一个不知名牌子的mp3藏在枕头下面，熄灯时间一过，我就会从枕头下把它摸出来，然后熟门熟路地打开听半个小时的歌。
@@ -120,6 +123,7 @@
       <div class="paper">
         <div class="ptitle">《感知力 表达》</div>
         <div class="ptag">Record ✦ 记录</div>
+        <div class="pquote">表达不是错，表达没有门槛，矫情话很多也没有关系，尽管说你想说的，因为这个世界上总会有人和你情感共振。</div>
         <div class="pclip"><div class="inner">12.1
 
 最近在群聊里看朋友们聊起疫情对我们的影响，疫情到底给我们的生活带来了什么？仿佛看不到头的封控、不得不一延再延的各种活动，抑或是每天只是起床、做核酸、上网课、睡觉、再起床，循环往复。除了生活上的受限制和极大的不自由，下降的还有我对生活的感知力。

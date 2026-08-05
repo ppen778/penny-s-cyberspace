@@ -764,14 +764,14 @@ a{color:inherit}
   display:inline-block;font-size:10px;letter-spacing:.12em;color:#8A5A78;
   margin:5px 0 10px;background:#FCE8F1;border-radius:5px;padding:3px 9px;
 }
-.ms .pclip{max-height:78px;overflow:hidden;position:relative;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
-.ms .pclip::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:30px;
-  background:linear-gradient(180deg,rgba(255,255,255,0),#fff);
-  pointer-events:none;transition:opacity .3s;
+.ms .pquote{
+  font-family:'ZKuaile';font-size:15px;line-height:1.9;color:#C24D7E;
+  padding:3px 4px 5px 14px;border-left:3px solid var(--pink);margin:2px 0 6px;
+  background:linear-gradient(90deg,rgba(242,97,156,.08),transparent 80%);
+  border-radius:0 8px 8px 0;
 }
+.ms .pclip{max-height:0;overflow:hidden;position:relative;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
 .ms.open .pclip{max-height:14000px}
-.ms.open .pclip::after{opacity:0}
 .ms .pclip .inner{white-space:pre-line;font-size:14.5px;line-height:2.1;color:#2A2A2A}
 .ms .pexp{
   display:inline-flex;align-items:center;gap:5px;margin-top:10px;
