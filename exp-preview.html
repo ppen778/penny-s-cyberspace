@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经历页交互方案 ✦ 三选一</title>
+<style>
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:linear-gradient(180deg,#FDEFF4,#F3F0FB);font-family:"Microsoft YaHei",sans-serif;padding:36px 30px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px;color:#1C1B18}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:26px}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .panel{border-radius:16px;padding:18px;background:rgba(255,255,255,.92);box-shadow:5px 5px 0 rgba(28,27,24,.8);border:2px solid #1C1B18}
+  .panel h2{font-size:15px;font-weight:800;margin-bottom:4px}
+  .panel .vb{font-size:11px;color:#8A7A5C;margin-bottom:14px}
+  .tl{position:relative;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#F2619C,#E78EF8,#93ABD9)}
+  .item{position:relative;margin-bottom:14px}
+  .dot{position:absolute;left:-26px;top:14px;width:16px;height:16px;border-radius:50%;border:1.5px solid #1C1B18;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
+  .card{border:1.5px solid rgba(17,17,17,.14);border-radius:12px;background:#fff;box-shadow:0 6px 16px rgba(30,60,110,.08);padding:12px 14px}
+  .card h3{font-size:13px;font-weight:700}
+  .card .tag{font-size:10px;color:#8A7A5C;margin-top:2px}
+  .card p{font-size:11.5px;color:#5A6B7C;margin-top:6px;line-height:1.7}
+  .note{margin-top:12px;font-size:12px;color:#5A5548;background:#fff;border:1px solid rgba(28,27,24,.18);border-radius:10px;padding:9px 12px;line-height:1.8}
+  .note b{color:#C24D7E}
+
+  /* A: hover glow + shine */
+  .pa .card{position:relative;overflow:hidden;transition:transform .25s, box-shadow .25s, border-color .25s}
+  .pa .card::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.7) 50%,transparent 70%);transform:translateX(-130%);transition:transform .5s}
+  .pa .item:hover .card{transform:translateY(-4px);box-shadow:0 14px 28px rgba(60,40,90,.18);border-color:#F2619C}
+  .pa .item:hover .card::after{transform:translateX(130%)}
+  .pa .item:hover .dot{transform:scale(1.3) rotate(-15deg);box-shadow:0 0 12px rgba(242,97,156,.6)}
+  .pa .dot,.pb .dot,.pc .dot{transition:transform .3s, box-shadow .3s}
+
+  /* B: 3D tilt + pin bubble */
+  .pb .tl{padding-left:34px}
+  .pb .tl::before{left:14px}
+  .pb .dot{left:-34px;width:26px;height:26px;border-radius:8px;top:10px}
+  .pb .item{perspective:800px}
+  .pb .card{transform-origin:center;transition:transform .3s, box-shadow .3s}
+  .pb .item:hover .card{transform:rotateX(5deg) rotateY(-5deg) translateY(-4px);box-shadow:0 20px 36px rgba(60,40,90,.22)}
+  .pb .dot{position:relative;float:left;margin-left:-34px}
+  .pb .item:hover .dot{transform:rotate(8deg) scale(1.1);box-shadow:0 6px 12px rgba(60,40,90,.3)}
+  .pb .pinbub{position:absolute;left:-92px;top:-6px;background:#1C1B18;color:#fff;font-size:9px;padding:3px 7px;border-radius:6px;opacity:0;transition:opacity .25s, transform .25s;transform:translateY(4px);white-space:nowrap;z-index:5}
+  .pb .item:hover .pinbub{opacity:1;transform:translateY(0)}
+
+  /* C: light-up path */
+  .pc .item{--c:#F2619C}
+  .pc .item:nth-child(2){--c:#E78EF8}
+  .pc .seg{position:absolute;left:-26px;top:-14px;height:14px;width:2px;background:transparent;transition:background .4s}
+  .pc .item:first-child .seg{display:none}
+  .pc .item:hover .seg{background:var(--c)}
+  .pc .item:hover .card{border-color:var(--c);box-shadow:0 10px 22px rgba(60,40,90,.14)}
+  .pc .item:hover .dot{background:var(--c);transform:scale(1.25);box-shadow:0 0 14px var(--c)}
+  .pc .card{transition:border-color .3s, box-shadow .3s}
+</style>
+</head>
+<body>
+  <h1>经历页交互方案 ✦ 三选一</h1>
+  <div class="sub">三种方案内容都直接完整呈现（不需要点击展开），区别在"滚动与悬停"的交互感觉。</div>
+  <div class="cols">
+    <div class="panel pa">
+      <h2>方案 A · 悬停发光</h2>
+      <div class="vb">滚动时逐条浮现 · 悬停卡片上浮 + 光晕扫过 + 星星发光</div>
+      <div class="tl">
+        <div class="item"><span class="dot" style="background:#F2619C">实</span>
+          <div class="card"><h3>《娱乐周刊》实习编辑</h3><div class="tag">Internship</div><p>文字策划 / 运营执行 / 视频剪辑，账号存量粉丝 16W+。</p></div>
+        </div>
+        <div class="item"><span class="dot" style="background:#E78EF8">红</span>
+          <div class="card"><h3>小红书图文编辑写手</h3><div class="tag">Social</div><p>负责小红书账号视觉与文案，独立完成封面与配图。</p></div>
+        </div>
+      </div>
+      <div class="note"><b>优点</b>：干净、不抢内容；适合求职页，稳重里带一点活泼。</div>
+    </div>
+
+    <div class="panel pb">
+      <h2>方案 B · 3D 倾斜 + 图钉气泡</h2>
+      <div class="vb">悬停卡片 3D 倾斜 · 时间轴图钉弹出小气泡</div>
+      <div class="tl">
+        <div class="item"><span class="pinbub">实习 ✦ 编辑部</span><span class="dot" style="background:#93ABD9">📌</span>
+          <div class="card"><h3>《娱乐周刊》实习编辑</h3><div class="tag">Internship</div><p>文字策划 / 运营执行 / 视频剪辑，账号存量粉丝 16W+。</p></div>
+        </div>
+        <div class="item"><span class="pinbub">运营 ✦ 小红书</span><span class="dot" style="background:#F2619C">📌</span>
+          <div class="card"><h3>小红书图文编辑写手</h3><div class="tag">Social</div><p>负责小红书账号视觉与文案，独立完成封面与配图。</p></div>
+        </div>
+      </div>
+      <div class="note"><b>优点</b>：空间感强、更"物件化"，像翻实物卡片；适合展示个人风格。</div>
+    </div>
+
+    <div class="panel pc">
+      <h2>方案 C · 点亮路径</h2>
+      <div class="vb">悬停哪段经历，时间轴就从上一段"点亮"到它</div>
+      <div class="tl">
+        <div class="item"><span class="seg"></span><span class="dot" style="background:#F2619C">✦</span>
+          <div class="card"><h3>《娱乐周刊》实习编辑</h3><div class="tag">Internship</div><p>文字策划 / 运营执行 / 视频剪辑，账号存量粉丝 16W+。</p></div>
+        </div>
+        <div class="item"><span class="seg"></span><span class="dot" style="background:#E78EF8">✦</span>
+          <div class="card"><h3>小红书图文编辑写手</h3><div class="tag">Social</div><p>负责小红书账号视觉与文案，独立完成封面与配图。</p></div>
+        </div>
+      </div>
+      <div class="note"><b>优点</b>：有"成长路径"叙事感，适合体现一路走来的过程。</div>
+    </div>
+  </div>
+</body>
+</html>

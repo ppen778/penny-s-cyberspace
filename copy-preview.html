@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文案页交互方案 ✦ 三选一</title>
+<style>
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:linear-gradient(180deg,#FDEFF4,#F3F0FB);
+    font-family:"Microsoft YaHei",sans-serif;
+    padding:36px 30px 56px;
+    color:#1C1B18;
+  }
+  h1{font-family:'ZKuaile';font-size:26px;font-weight:400;letter-spacing:.02em;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:26px;line-height:1.9}
+  .sub b{color:#C24D7E}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+  .panel{border-radius:16px;padding:18px;background:rgba(255,255,255,.92);box-shadow:5px 5px 0 rgba(28,27,24,.8);border:2px solid #1C1B18;position:relative}
+  .panel h2{font-family:'ZKuaile';font-size:17px;font-weight:400;margin-bottom:4px}
+  .panel .vb{font-size:11px;color:#8A7A5C;margin-bottom:14px;line-height:1.7}
+  .note{margin-top:14px;font-size:12px;color:#5A5548;background:#FFF7EF;border:1px solid rgba(28,27,24,.18);border-radius:10px;padding:9px 12px;line-height:1.8}
+  .note b{color:#C24D7E}
+  .star{position:absolute;font-size:15px;animation:tw 2.2s ease-in-out infinite}
+  .star.s1{top:10px;right:14px;color:#F2619C}
+  .star.s2{top:38px;right:34px;color:#EDE986;animation-delay:.6s}
+  @keyframes tw{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.25) rotate(18deg)}}
+
+  /* ---------- 方案 A · 手稿便签 ---------- */
+  .pa .ms{position:relative;margin-bottom:16px;transition:transform .3s cubic-bezier(.2,.8,.3,1.2);opacity:0;transform:translateY(18px) rotate(var(--r,0deg));animation:msin .7s forwards;animation-delay:var(--d,0s)}
+  @keyframes msin{to{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}}
+  .pa .ms:nth-child(2){--r:-1.4deg;--d:.1s}
+  .pa .ms:nth-child(3){--r:1.1deg;--d:.2s}
+  .pa .ms:nth-child(4){--r:-.8deg;--d:.3s}
+  .pa .ms::before{
+    content:"";position:absolute;left:50%;top:-8px;width:74px;height:20px;transform:translateX(-50%) rotate(-2deg);
+    background:rgba(242,97,156,.28);border-left:2px dashed rgba(255,255,255,.85);border-right:2px dashed rgba(255,255,255,.85);
+    box-shadow:0 1px 3px rgba(0,0,0,.08);z-index:2;
+  }
+  .pa .paper{
+    position:relative;background:#fff;border:1.5px solid rgba(17,17,17,.14);border-radius:10px;
+    padding:14px 16px;box-shadow:0 8px 18px rgba(60,40,90,.1);overflow:hidden;transition:transform .3s, box-shadow .3s, border-color .3s;
+  }
+  .pa .paper::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(100deg,transparent 30%,rgba(243,240,251,.85) 50%,transparent 70%);
+    transform:translateX(-130%);transition:transform .5s;
+  }
+  .pa .ms:hover{transform:translateY(-5px) rotate(0deg) scale(1.015);z-index:3}
+  .pa .ms:hover .paper{box-shadow:0 16px 30px rgba(60,40,90,.2);border-color:#F2619C}
+  .pa .ms:hover .paper::after{transform:translateX(130%)}
+  .pa .ptitle{font-family:'ZKuaile';font-size:14px;font-weight:400;letter-spacing:.02em}
+  .pa .ptag{display:inline-block;font-size:9.5px;letter-spacing:.1em;color:#8A5A78;margin:3px 0 7px;background:#FCE8F1;border-radius:5px;padding:2px 8px}
+  .pa .pbody{font-size:11.5px;line-height:1.8;color:#3A4A5E}
+  .pa .pbody b{color:#F2619C}
+  .pa .pbody::first-line{color:#F2619C}
+
+  /* ---------- 方案 B · 荧光笔阅读桌 ---------- */
+  .pb .rd{display:grid;grid-template-columns:92px 1fr;gap:14px}
+  .pb .rail{position:relative}
+  .pb .chips{position:sticky;top:0;display:flex;flex-direction:column;gap:8px}
+  .pb .chip{
+    font-size:10.5px;padding:7px 9px;border-radius:999px;background:#fff;border:1.5px solid rgba(17,17,17,.16);
+    color:#5A4A5E;cursor:pointer;transition:background .25s, color .25s, transform .25s, box-shadow .25s;text-align:left;line-height:1.4;
+  }
+  .pb .chip:hover{transform:translateX(3px);border-color:#E78EF8}
+  .pb .chip.on{background:#F2619C;color:#fff;border-color:#F2619C;box-shadow:0 6px 14px rgba(242,97,156,.4);transform:translateX(3px)}
+  .pb .art{margin-bottom:14px;background:#fff;border:1.5px solid rgba(17,17,17,.14);border-radius:12px;padding:13px 15px;box-shadow:0 6px 16px rgba(30,60,110,.08);transition:border-color .3s, box-shadow .3s;scroll-margin-top:10px}
+  .pb .art.lit{border-color:#EDE986;box-shadow:0 8px 20px rgba(120,120,30,.18)}
+  .pb .atitle{font-family:'ZKuaile';font-size:13.5px;font-weight:400}
+  .pb .atag{font-size:9.5px;letter-spacing:.1em;color:#8A7A5C;margin:3px 0 7px;text-transform:uppercase}
+  .pb .abody{font-size:11.5px;line-height:1.8;color:#3A4A5E}
+  .pb .abody .hl{
+    background:linear-gradient(120deg, rgba(237,233,134,.0) 0%, rgba(237,233,134,.9) 12%, rgba(237,233,134,.9) 88%, rgba(237,233,134,.0) 100%);
+    background-size:100% 92%;background-repeat:no-repeat;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+    transition:background-size .6s ease, opacity .3s;opacity:.55;padding:2px 1px;
+  }
+  .pb .art.lit .hl,.pb .art:hover .hl{opacity:1;background-size:100% 92%}
+
+  /* ---------- 方案 C · 胶片分镜 ---------- */
+  .pc .strip{position:relative;margin:4px 0 0 2px}
+  .pc .frame{
+    position:relative;margin:0 0 16px 20px;border-radius:12px;overflow:hidden;
+    background:#fff;border:1.5px solid rgba(17,17,17,.16);box-shadow:0 8px 18px rgba(60,40,90,.1);
+    opacity:0;transform:translateY(20px);animation:msin .7s forwards;animation-delay:var(--d,0s);
+    transition:transform .3s, box-shadow .3s;
+  }
+  .pc .frame:nth-child(2){--d:.12s}
+  .pc .frame:nth-child(3){--d:.24s}
+  .pc .frame::before,.pc .frame::after{
+    content:"";position:absolute;left:-14px;top:50%;width:9px;height:9px;border-radius:50%;
+    background:#fff;border:2px solid #93ABD9;transform:translateY(-50%);transition:background .3s, box-shadow .3s;z-index:2;
+  }
+  .pc .frame::after{left:auto;right:-14px}
+  .pc .frame:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(60,40,90,.2)}
+  .pc .frame:hover::before,.pc .frame:hover::after{background:#EDE986;box-shadow:0 0 10px rgba(237,233,134,.9)}
+  .pc .fhead{display:flex;align-items:center;gap:8px;background:#1C1B18;color:#fff;padding:8px 14px;font-family:'ZKuaile';font-size:12px;letter-spacing:.05em}
+  .pc .fhead .sc{color:#EDE986}
+  .pc .fbody{padding:13px 15px;font-size:11.5px;line-height:1.8;color:#3A4A5E}
+  .pc .fbody .q{display:inline;background:linear-gradient(180deg,transparent 62%,rgba(242,97,156,.32) 62%)}
+  .pc .ftag{font-size:9.5px;letter-spacing:.12em;color:#8A7A5C;text-transform:uppercase}
+
+  @media (max-width:1100px){.cols{grid-template-columns:1fr;gap:20px}}
+</style>
+</head>
+<body>
+  <h1>文案页交互方案 ✦ 三选一</h1>
+  <div class="sub">三套方案都<b>直接完整呈现文字</b>（不用点击展开），区别在于"阅读时的交互感觉"。周刊翻书保持不变，这里只改文案与随笔部分。</div>
+
+  <div class="cols">
+
+    <!-- 方案 A -->
+    <div class="panel pa">
+      <span class="star s1">✦</span><span class="star s2">✦</span>
+      <h2>方案 A · 手稿便签</h2>
+      <div class="vb">每篇文字像一张散在桌上的手稿纸，轻微歪斜 + 胶带固定；悬停时纸张摆正上浮，高光扫过</div>
+      <div class="ms"><div class="paper">
+        <div class="ptitle">《暖阳万物藏》· 李昀锐专版</div>
+        <div class="ptag">Copywriting ✦ 娱乐封面</div>
+        <div class="pbody"><b>深秋迟暮，新冬可期。</b>季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
+      </div></div>
+      <div class="ms"><div class="paper">
+        <div class="ptitle">《沉浸式种地？谁的 DNA 又动了！》</div>
+        <div class="ptag">Copywriting ✦ 深度解读</div>
+        <div class="pbody">最近，一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，豆瓣评分高达 8.5，这部"小破综"成为无数年轻人闲暇之余的新晋"电子榨菜"……</div>
+      </div></div>
+      <div class="ms"><div class="paper">
+        <div class="ptitle">《摘下耳机是新世纪的脱帽礼》</div>
+        <div class="ptag">Essay ✦ 随笔</div>
+        <div class="pbody">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣，耳机里的快乐是最低成本的快乐……</div>
+      </div></div>
+      <div class="note"><b>感觉</b>：最"私人"的一版，像翻一个人的手稿本；拼贴感最强，和桌面风格最搭。</div>
+    </div>
+
+    <!-- 方案 B -->
+    <div class="panel pb">
+      <span class="star s1">✦</span><span class="star s2">✦</span>
+      <h2>方案 B · 荧光笔阅读桌</h2>
+      <div class="vb">左侧文章目录固定跟随；悬停或点击目录，自动跳到对应文章并划上荧光笔；往下读时目录自动点亮</div>
+      <div class="rd">
+        <div class="rail"><div class="chips">
+          <button class="chip on" data-t="0">李昀锐专版</button>
+          <button class="chip" data-t="1">种地吧解读</button>
+          <button class="chip" data-t="2">脱帽礼随笔</button>
+        </div></div>
+        <div class="stack">
+          <div class="art"><div class="atitle">《暖阳万物藏》· 李昀锐专版</div><div class="atag">Copywriting ✦ 娱乐封面</div>
+            <div class="abody"><span class="hl">深秋迟暮，新冬可期。季节轮换，总有新的故事值得期待。</span>属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
+          </div>
+          <div class="art"><div class="atitle">《沉浸式种地？谁的 DNA 又动了！》</div><div class="atag">Copywriting ✦ 深度解读</div>
+            <div class="abody"><span class="hl">一档主打劳作耕种的纪实性慢综艺《种地吧》走红网络，豆瓣评分高达 8.5。</span>这部"小破综"成为无数年轻人闲暇之余的新晋"电子榨菜"……</div>
+          </div>
+          <div class="art"><div class="atitle">《摘下耳机是新世纪的脱帽礼》</div><div class="atag">Essay ✦ 随笔</div>
+            <div class="abody"><span class="hl">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣。</span>耳机里的快乐是最低成本的快乐，音乐拯救了我很多"好像完了"的时刻……</div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>感觉</b>：最有"阅读仪式感"，像编辑在看自己的校样；适合想突出"文字本身"的呈现。</div>
+    </div>
+
+    <!-- 方案 C -->
+    <div class="panel pc">
+      <span class="star s1">✦</span><span class="star s2">✦</span>
+      <h2>方案 C · 胶片分镜</h2>
+      <div class="vb">每篇文字像一段胶片分镜：黑色场记头 + 胶片齿孔，悬停时齿孔亮起、画面浮现</div>
+      <div class="strip">
+        <div class="frame">
+          <div class="fhead"><span class="sc">SCENE 01</span> · 娱乐封面</div>
+          <div class="fbody"><span class="q">深秋迟暮，新冬可期。</span>季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
+          <div class="ftag" style="padding:0 14px 12px">《暖阳万物藏》</div>
+        </div>
+        <div class="frame">
+          <div class="fhead"><span class="sc">SCENE 02</span> · 深度解读</div>
+          <div class="fbody">一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，<span class="q">豆瓣评分高达 8.5</span>……</div>
+          <div class="ftag" style="padding:0 14px 12px">《沉浸式种地？谁的 DNA 又动了！》</div>
+        </div>
+        <div class="frame">
+          <div class="fhead"><span class="sc">SCENE 03</span> · 随笔</div>
+          <div class="fbody"><span class="q">耳机里的快乐是最低成本的快乐。</span>音乐带给我的愉悦感，确实拯救了我日常生活中很多"好像完了"的时刻……</div>
+          <div class="ftag" style="padding:0 14px 12px">《摘下耳机是新世纪的脱帽礼》</div>
+        </div>
+      </div>
+      <div class="note"><b>感觉</b>：最"新潮"的一版，把文字当影像作品对待；适合想强调"内容创作"属性的你。</div>
+    </div>
+  </div>
+
+  <script>
+    // 方案 B：目录联动 + 荧光笔
+    const chips = document.querySelectorAll('.pb .chip');
+    const arts = document.querySelectorAll('.pb .art');
+    const lit = i => {
+      chips.forEach((c, j) => c.classList.toggle('on', j === i));
+      arts.forEach((a, j) => a.classList.toggle('lit', j === i));
+    };
+    chips.forEach((c, i) => c.addEventListener('click', () => {
+      lit(i);
+      arts[i].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }));
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) lit([...arts].indexOf(e.target)); });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    arts.forEach(a => io.observe(a));
+  </script>
+</body>
+</html>
