@@ -543,6 +543,11 @@ a{color:inherit}
 
 /* ---------- category galleries ---------- */
 .cat-intro{font-size:13px;color:#5A6B7C;margin-bottom:22px;line-height:1.9}
+.life-motto{
+  font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;
+  font-size:18px;font-weight:700;color:#F2619C;
+  line-height:1.7;margin-bottom:22px;
+}
 .phone-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:26px;justify-items:center}
 .phone{
   width:210px;border-radius:28px;border:2px solid var(--ink);
