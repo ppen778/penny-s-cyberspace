@@ -2,7 +2,7 @@
   // ═══ 站内文字编辑（仅上线前给你自己用）═══
   // 上线时：把 ENABLED 改成 false，或直接删除所有页面里这行引用：
   //   <script src="assets/edit.js"></script>
-  const ENABLED = false; // 暂时关闭站内编辑，页面始终显示文件里的最新内容；上线前如需改文字，改回 true 即可
+  const ENABLED = false; // 已把修改写回文件，关闭站内编辑，避免旧缓存覆盖页面
   const PASSCODE = 'xintong2026'; // 你的个人密钥，可自行修改
   const LOCK_KEY = 'xintong-edit-unlocked';
   const SAVE_KEY = 'xintong-edits-v1';
@@ -58,6 +58,28 @@
         containers().forEach((el, i) => { saved[keyFor(el, i)] = el.innerHTML; });
         localStorage.setItem(SAVE_KEY, JSON.stringify(saved));
         alert('已保存（保存在本浏览器，仅你自己可见；上线前我会帮你同步到文件）');
+      }
+    });
+
+    // 导出按钮：把浏览器里保存的文字修改导出，方便发回给开发者写回文件
+    const exportBtn = document.createElement('button');
+    exportBtn.id = 'editExport';
+    exportBtn.textContent = '📤 导出我的修改';
+    exportBtn.style.cssText =
+      'position:fixed;right:18px;bottom:58px;z-index:96;' +
+      'font:700 12px "Inter Tight","Microsoft YaHei",sans-serif;' +
+      'border:1.5px solid #111;border-radius:10px;background:#E78EF8;color:#fff;' +
+      'padding:9px 14px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.18);';
+    document.body.appendChild(exportBtn);
+    exportBtn.addEventListener('click', () => {
+      const saved = localStorage.getItem(SAVE_KEY) || '{}';
+      try {
+        navigator.clipboard.writeText(saved).then(() => alert('已复制到剪贴板，请粘贴发给开发者')).catch(() => show(saved));
+      } catch (e) {
+        show(saved);
+      }
+      function show(text) {
+        const ta = prompt('复制以下内容发给开发者：', text);
       }
     });
   }
