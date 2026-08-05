@@ -3,204 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文案页交互方案 ✦ 三选一</title>
+<title>文案页方案 A 定稿预览 ✦ 手稿便签 + 点击展开</title>
 <style>
   @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     background:linear-gradient(180deg,#FDEFF4,#F3F0FB);
     font-family:"Microsoft YaHei",sans-serif;
-    padding:36px 30px 56px;
-    color:#1C1B18;
+    padding:36px 30px 60px;color:#1C1B18;
   }
   h1{font-family:'ZKuaile';font-size:26px;font-weight:400;letter-spacing:.02em;margin-bottom:6px}
-  .sub{font-size:13px;color:#6B6353;margin-bottom:26px;line-height:1.9}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:8px;line-height:1.9}
   .sub b{color:#C24D7E}
-  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
-  .panel{border-radius:16px;padding:18px;background:rgba(255,255,255,.92);box-shadow:5px 5px 0 rgba(28,27,24,.8);border:2px solid #1C1B18;position:relative}
-  .panel h2{font-family:'ZKuaile';font-size:17px;font-weight:400;margin-bottom:4px}
-  .panel .vb{font-size:11px;color:#8A7A5C;margin-bottom:14px;line-height:1.7}
-  .note{margin-top:14px;font-size:12px;color:#5A5548;background:#FFF7EF;border:1px solid rgba(28,27,24,.18);border-radius:10px;padding:9px 12px;line-height:1.8}
-  .note b{color:#C24D7E}
-  .star{position:absolute;font-size:15px;animation:tw 2.2s ease-in-out infinite}
-  .star.s1{top:10px;right:14px;color:#F2619C}
-  .star.s2{top:38px;right:34px;color:#EDE986;animation-delay:.6s}
-  @keyframes tw{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.25) rotate(18deg)}}
+  .hint{
+    display:inline-flex;align-items:center;gap:7px;margin:4px 0 28px;
+    font-family:'ZKuaile';font-size:13px;color:#7A6A3E;background:#FBF6D9;
+    border:1.5px solid rgba(237,233,134,.9);border-radius:999px;padding:6px 16px;
+  }
+  .wrap{max-width:860px;margin:0 auto}
 
-  /* ---------- 方案 A · 手稿便签 ---------- */
-  .pa .ms{position:relative;margin-bottom:16px;transition:transform .3s cubic-bezier(.2,.8,.3,1.2);opacity:0;transform:translateY(18px) rotate(var(--r,0deg));animation:msin .7s forwards;animation-delay:var(--d,0s)}
-  @keyframes msin{to{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}}
-  .pa .ms:nth-child(2){--r:-1.4deg;--d:.1s}
-  .pa .ms:nth-child(3){--r:1.1deg;--d:.2s}
-  .pa .ms:nth-child(4){--r:-.8deg;--d:.3s}
-  .pa .ms::before{
-    content:"";position:absolute;left:50%;top:-8px;width:74px;height:20px;transform:translateX(-50%) rotate(-2deg);
-    background:rgba(242,97,156,.28);border-left:2px dashed rgba(255,255,255,.85);border-right:2px dashed rgba(255,255,255,.85);
-    box-shadow:0 1px 3px rgba(0,0,0,.08);z-index:2;
+  /* ---------- 手稿便签 ---------- */
+  .ms{position:relative;margin-bottom:22px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.3,1.2)}
+  .ms::before{
+    content:"";position:absolute;left:50%;top:-9px;width:86px;height:22px;
+    transform:translateX(-50%) rotate(-2deg);z-index:2;
+    background:rgba(242,97,156,.3);
+    border-left:2px dashed rgba(255,255,255,.85);border-right:2px dashed rgba(255,255,255,.85);
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
   }
-  .pa .paper{
-    position:relative;background:#fff;border:1.5px solid rgba(17,17,17,.14);border-radius:10px;
-    padding:14px 16px;box-shadow:0 8px 18px rgba(60,40,90,.1);overflow:hidden;transition:transform .3s, box-shadow .3s, border-color .3s;
+  .ms:nth-of-type(even)::before{background:rgba(231,142,248,.32)}
+  .ms:nth-of-type(3n)::before{background:rgba(237,233,134,.6)}
+  .ms .paper{
+    position:relative;background:#fff;border:1.5px solid rgba(17,17,17,.14);border-radius:12px;
+    padding:18px 20px 16px;box-shadow:0 8px 18px rgba(60,40,90,.1);overflow:hidden;
+    transition:transform .3s, box-shadow .3s, border-color .3s;
   }
-  .pa .paper::after{
+  .ms .paper::after{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(100deg,transparent 30%,rgba(243,240,251,.85) 50%,transparent 70%);
     transform:translateX(-130%);transition:transform .5s;
   }
-  .pa .ms:hover{transform:translateY(-5px) rotate(0deg) scale(1.015);z-index:3}
-  .pa .ms:hover .paper{box-shadow:0 16px 30px rgba(60,40,90,.2);border-color:#F2619C}
-  .pa .ms:hover .paper::after{transform:translateX(130%)}
-  .pa .ptitle{font-family:'ZKuaile';font-size:14px;font-weight:400;letter-spacing:.02em}
-  .pa .ptag{display:inline-block;font-size:9.5px;letter-spacing:.1em;color:#8A5A78;margin:3px 0 7px;background:#FCE8F1;border-radius:5px;padding:2px 8px}
-  .pa .pbody{font-size:11.5px;line-height:1.8;color:#3A4A5E}
-  .pa .pbody b{color:#F2619C}
-  .pa .pbody::first-line{color:#F2619C}
-
-  /* ---------- 方案 B · 荧光笔阅读桌 ---------- */
-  .pb .rd{display:grid;grid-template-columns:92px 1fr;gap:14px}
-  .pb .rail{position:relative}
-  .pb .chips{position:sticky;top:0;display:flex;flex-direction:column;gap:8px}
-  .pb .chip{
-    font-size:10.5px;padding:7px 9px;border-radius:999px;background:#fff;border:1.5px solid rgba(17,17,17,.16);
-    color:#5A4A5E;cursor:pointer;transition:background .25s, color .25s, transform .25s, box-shadow .25s;text-align:left;line-height:1.4;
+  .ms:hover .paper{transform:translateY(-5px);box-shadow:0 16px 30px rgba(60,40,90,.2);border-color:#F2619C}
+  .ms:hover .paper::after{transform:translateX(130%)}
+  .ms .ptitle{font-family:'ZKuaile';font-size:17px;letter-spacing:.02em;padding-right:6px}
+  .ms .ptag{
+    display:inline-block;font-size:10px;letter-spacing:.12em;color:#8A5A78;
+    margin:5px 0 10px;background:#FCE8F1;border-radius:5px;padding:3px 9px;
   }
-  .pb .chip:hover{transform:translateX(3px);border-color:#E78EF8}
-  .pb .chip.on{background:#F2619C;color:#fff;border-color:#F2619C;box-shadow:0 6px 14px rgba(242,97,156,.4);transform:translateX(3px)}
-  .pb .art{margin-bottom:14px;background:#fff;border:1.5px solid rgba(17,17,17,.14);border-radius:12px;padding:13px 15px;box-shadow:0 6px 16px rgba(30,60,110,.08);transition:border-color .3s, box-shadow .3s;scroll-margin-top:10px}
-  .pb .art.lit{border-color:#EDE986;box-shadow:0 8px 20px rgba(120,120,30,.18)}
-  .pb .atitle{font-family:'ZKuaile';font-size:13.5px;font-weight:400}
-  .pb .atag{font-size:9.5px;letter-spacing:.1em;color:#8A7A5C;margin:3px 0 7px;text-transform:uppercase}
-  .pb .abody{font-size:11.5px;line-height:1.8;color:#3A4A5E}
-  .pb .abody .hl{
-    background:linear-gradient(120deg, rgba(237,233,134,.0) 0%, rgba(237,233,134,.9) 12%, rgba(237,233,134,.9) 88%, rgba(237,233,134,.0) 100%);
-    background-size:100% 92%;background-repeat:no-repeat;box-decoration-break:clone;-webkit-box-decoration-break:clone;
-    transition:background-size .6s ease, opacity .3s;opacity:.55;padding:2px 1px;
+  .ms .pclip{max-height:76px;overflow:hidden;position:relative;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
+  .ms .pclip::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:30px;
+    background:linear-gradient(180deg,rgba(255,255,255,0),#fff);
+    pointer-events:none;transition:opacity .3s;
   }
-  .pb .art.lit .hl,.pb .art:hover .hl{opacity:1;background-size:100% 92%}
-
-  /* ---------- 方案 C · 胶片分镜 ---------- */
-  .pc .strip{position:relative;margin:4px 0 0 2px}
-  .pc .frame{
-    position:relative;margin:0 0 16px 20px;border-radius:12px;overflow:hidden;
-    background:#fff;border:1.5px solid rgba(17,17,17,.16);box-shadow:0 8px 18px rgba(60,40,90,.1);
-    opacity:0;transform:translateY(20px);animation:msin .7s forwards;animation-delay:var(--d,0s);
-    transition:transform .3s, box-shadow .3s;
+  .ms.open .pclip{max-height:6000px}
+  .ms.open .pclip::after{opacity:0}
+  .ms .pclip .inner{white-space:pre-line;font-size:14.5px;line-height:2.1;color:#2A2A2A}
+  .ms .pexp{
+    display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+    font-family:'ZKuaile';font-size:13px;letter-spacing:.03em;color:#C24D7E;
+    background:#FFF2F7;border:1.5px solid rgba(242,97,156,.35);border-radius:999px;
+    padding:4px 14px;transition:background .25s;
   }
-  .pc .frame:nth-child(2){--d:.12s}
-  .pc .frame:nth-child(3){--d:.24s}
-  .pc .frame::before,.pc .frame::after{
-    content:"";position:absolute;left:-14px;top:50%;width:9px;height:9px;border-radius:50%;
-    background:#fff;border:2px solid #93ABD9;transform:translateY(-50%);transition:background .3s, box-shadow .3s;z-index:2;
-  }
-  .pc .frame::after{left:auto;right:-14px}
-  .pc .frame:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(60,40,90,.2)}
-  .pc .frame:hover::before,.pc .frame:hover::after{background:#EDE986;box-shadow:0 0 10px rgba(237,233,134,.9)}
-  .pc .fhead{display:flex;align-items:center;gap:8px;background:#1C1B18;color:#fff;padding:8px 14px;font-family:'ZKuaile';font-size:12px;letter-spacing:.05em}
-  .pc .fhead .sc{color:#EDE986}
-  .pc .fbody{padding:13px 15px;font-size:11.5px;line-height:1.8;color:#3A4A5E}
-  .pc .fbody .q{display:inline;background:linear-gradient(180deg,transparent 62%,rgba(242,97,156,.32) 62%)}
-  .pc .ftag{font-size:9.5px;letter-spacing:.12em;color:#8A7A5C;text-transform:uppercase}
-
-  @media (max-width:1100px){.cols{grid-template-columns:1fr;gap:20px}}
+  .ms:hover .pexp{background:#FCE1EE}
+  .ms.open .pexp{color:#7A6A3E;background:#FBF6D9;border-color:rgba(237,233,134,.85)}
 </style>
 </head>
 <body>
-  <h1>文案页交互方案 ✦ 三选一</h1>
-  <div class="sub">三套方案都<b>直接完整呈现文字</b>（不用点击展开），区别在于"阅读时的交互感觉"。周刊翻书保持不变，这里只改文案与随笔部分。</div>
+  <div class="wrap">
+    <h1>文案页方案 A 定稿预览</h1>
+    <div class="sub">手稿便签 + <b>点击展开</b>：收起时只露出两三行，点开整篇手稿（或点下方小胶囊）阅读全文，再点一次收起。</div>
+    <div class="hint">✦ 悬停：纸张摆正上浮、高光扫过 · 点击：展开 / 收起</div>
 
-  <div class="cols">
-
-    <!-- 方案 A -->
-    <div class="panel pa">
-      <span class="star s1">✦</span><span class="star s2">✦</span>
-      <h2>方案 A · 手稿便签</h2>
-      <div class="vb">每篇文字像一张散在桌上的手稿纸，轻微歪斜 + 胶带固定；悬停时纸张摆正上浮，高光扫过</div>
-      <div class="ms"><div class="paper">
+    <div class="ms">
+      <div class="paper">
         <div class="ptitle">《暖阳万物藏》· 李昀锐专版</div>
         <div class="ptag">Copywriting ✦ 娱乐封面</div>
-        <div class="pbody"><b>深秋迟暮，新冬可期。</b>季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
-      </div></div>
-      <div class="ms"><div class="paper">
+        <div class="pclip"><div class="inner">暖阳万物藏 / 暖自心生，境随心转
+
+深秋迟暮，新冬可期。季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。
+
+雪花是冬天的来信，向人们宣告着冬季的到来。但是对李昀锐来说，比起感知到冬日第一片雪花，皮肤变得敏感才是提醒他"秋冬换季"最准时的闹钟。冬天拍戏时，李昀锐总会带上一个暖手袋御寒，对他这样体脂比较低的人来说，冬天实在不太友好，他总是更加偏爱凉爽的秋天。
+
+人间最浪漫之一，是伴雪食三餐。李昀锐的家乡是"千湖之省"——湖北，有着立冬时节吃萝卜的习俗，"冬吃萝卜夏吃姜"，每到秋冬之时，家家户户餐桌上总少不了萝卜。关于初冬，李昀锐最深刻的记忆就是一家人聚在一起吃火锅，既暖胃又能够跟家人团聚，"家人闲坐，灯火可亲"，幸福将寡淡无味的初冬煮成了茗香四溢，恰似冬日暖阳，好日常在。</div></div>
+        <div class="pexp">▼ 点击展开全文</div>
+      </div>
+    </div>
+
+    <div class="ms">
+      <div class="paper">
         <div class="ptitle">《沉浸式种地？谁的 DNA 又动了！》</div>
         <div class="ptag">Copywriting ✦ 深度解读</div>
-        <div class="pbody">最近，一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，豆瓣评分高达 8.5，这部"小破综"成为无数年轻人闲暇之余的新晋"电子榨菜"……</div>
-      </div></div>
-      <div class="ms"><div class="paper">
+        <div class="pclip"><div class="inner">最近，一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，豆瓣评分高达 8.5，这部固定班底成员只有 10 个"小糊豆"的"小破综"成为了无数年轻人闲暇之余的新晋"电子榨菜"。
+
+从《向往的生活》《种地吧》等主打田园治愈的综艺，到《去有风的地方》《卿卿日常》等剧集，亲近乡村生活的创作风从综艺刮到影视剧，在大众文化审美需求多元化的当下，田园剧综构成影视市场一股不可忽视的力量。那么，在众多强设定、快节奏的"爽"剧中，田园牧歌式的剧综究竟为什么能够脱颖而出，大受欢迎？
+
+在社会工业化进程中，乡村发展因附着于传统农业的形态，相对于城市文化来说，在很长一段时间里是相对缓滞的。也正因如此，它的质朴、原生态与慢节奏，令城市中的"打工人"心向往之。在中国社会科学院新闻与传播研究所世界传媒研究中心秘书长、研究员冷淞看来，"当下社会生活节奏快、压力大，工作、房贷、父母催婚等压力挑战着年轻人敏感的神经，他们亟需寻求解压和放松。"田园剧综的出现，正是抓住了当下观众对于慢生活的向往，为观众提供了脱离职场、回归家庭、享受生活的场域。</div></div>
+        <div class="pexp">▼ 点击展开全文</div>
+      </div>
+    </div>
+
+    <div class="ms">
+      <div class="paper">
         <div class="ptitle">《摘下耳机是新世纪的脱帽礼》</div>
         <div class="ptag">Essay ✦ 随笔</div>
-        <div class="pbody">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣，耳机里的快乐是最低成本的快乐……</div>
-      </div></div>
-      <div class="note"><b>感觉</b>：最"私人"的一版，像翻一个人的手稿本；拼贴感最强，和桌面风格最搭。</div>
+        <div class="pclip"><div class="inner">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣，对我来说，耳机里的快乐是最低成本的快乐，音乐带给我的愉悦感确实拯救了我日常生活中很多"好像完了"的时刻。
+
+"手机里最不能删的app一定是网易云，真是我的精神食粮，每天诸事不顺的话，给自己一首歌或者几首歌的机会活过来，亲身体验的最有效的起死回生的方法，戴上耳机就仅仅只是音乐和心的交流，隔绝这个世界，浑身舒畅。"2020年记录在微博的一段，当时我还在上高中，学校里不允许使用手机，所以我在淘宝上花几十块钱买了一个不知名牌子的mp3藏在枕头下面，熄灯时间一过，我就会从枕头下把它摸出来，然后熟门熟路地打开听半个小时的歌。
+
+上了大学以后，耳机是我每天的必需品，"没带耳机去上课"对我来说是一件能够影响心情的事情，每天洗澡的时候，都进浴室开好水了才发现原来耳机还戴着，总之，耳机已经成为我生活中地位仅次于手机的物品。戴上和取下耳机，在现代人的生活习惯里，逐渐变成了社交开关，只要你戴上耳机，别人就会默认你处于"需要一个人"的状态中，以此能够规避掉很多并不想社交的时刻。</div></div>
+        <div class="pexp">▼ 点击展开全文</div>
+      </div>
     </div>
 
-    <!-- 方案 B -->
-    <div class="panel pb">
-      <span class="star s1">✦</span><span class="star s2">✦</span>
-      <h2>方案 B · 荧光笔阅读桌</h2>
-      <div class="vb">左侧文章目录固定跟随；悬停或点击目录，自动跳到对应文章并划上荧光笔；往下读时目录自动点亮</div>
-      <div class="rd">
-        <div class="rail"><div class="chips">
-          <button class="chip on" data-t="0">李昀锐专版</button>
-          <button class="chip" data-t="1">种地吧解读</button>
-          <button class="chip" data-t="2">脱帽礼随笔</button>
-        </div></div>
-        <div class="stack">
-          <div class="art"><div class="atitle">《暖阳万物藏》· 李昀锐专版</div><div class="atag">Copywriting ✦ 娱乐封面</div>
-            <div class="abody"><span class="hl">深秋迟暮，新冬可期。季节轮换，总有新的故事值得期待。</span>属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
-          </div>
-          <div class="art"><div class="atitle">《沉浸式种地？谁的 DNA 又动了！》</div><div class="atag">Copywriting ✦ 深度解读</div>
-            <div class="abody"><span class="hl">一档主打劳作耕种的纪实性慢综艺《种地吧》走红网络，豆瓣评分高达 8.5。</span>这部"小破综"成为无数年轻人闲暇之余的新晋"电子榨菜"……</div>
-          </div>
-          <div class="art"><div class="atitle">《摘下耳机是新世纪的脱帽礼》</div><div class="atag">Essay ✦ 随笔</div>
-            <div class="abody"><span class="hl">对于没有耳机活不下去的我来说，这句话简直不要太有共鸣。</span>耳机里的快乐是最低成本的快乐，音乐拯救了我很多"好像完了"的时刻……</div>
-          </div>
-        </div>
-      </div>
-      <div class="note"><b>感觉</b>：最有"阅读仪式感"，像编辑在看自己的校样；适合想突出"文字本身"的呈现。</div>
-    </div>
+    <div class="ms">
+      <div class="paper">
+        <div class="ptitle">《感知力 表达》</div>
+        <div class="ptag">Record ✦ 记录</div>
+        <div class="pclip"><div class="inner">12.1
 
-    <!-- 方案 C -->
-    <div class="panel pc">
-      <span class="star s1">✦</span><span class="star s2">✦</span>
-      <h2>方案 C · 胶片分镜</h2>
-      <div class="vb">每篇文字像一段胶片分镜：黑色场记头 + 胶片齿孔，悬停时齿孔亮起、画面浮现</div>
-      <div class="strip">
-        <div class="frame">
-          <div class="fhead"><span class="sc">SCENE 01</span> · 娱乐封面</div>
-          <div class="fbody"><span class="q">深秋迟暮，新冬可期。</span>季节轮换，总有新的故事值得期待，属于李昀锐的冬日序曲也如期而至。雪花是冬天的来信……</div>
-          <div class="ftag" style="padding:0 14px 12px">《暖阳万物藏》</div>
-        </div>
-        <div class="frame">
-          <div class="fhead"><span class="sc">SCENE 02</span> · 深度解读</div>
-          <div class="fbody">一档主打劳作耕种的纪实性慢综艺《种地吧》在不知不觉间走红网络，<span class="q">豆瓣评分高达 8.5</span>……</div>
-          <div class="ftag" style="padding:0 14px 12px">《沉浸式种地？谁的 DNA 又动了！》</div>
-        </div>
-        <div class="frame">
-          <div class="fhead"><span class="sc">SCENE 03</span> · 随笔</div>
-          <div class="fbody"><span class="q">耳机里的快乐是最低成本的快乐。</span>音乐带给我的愉悦感，确实拯救了我日常生活中很多"好像完了"的时刻……</div>
-          <div class="ftag" style="padding:0 14px 12px">《摘下耳机是新世纪的脱帽礼》</div>
-        </div>
+最近在群聊里看朋友们聊起疫情对我们的影响，疫情到底给我们的生活带来了什么？仿佛看不到头的封控、不得不一延再延的各种活动，抑或是每天只是起床、做核酸、上网课、睡觉、再起床，循环往复。除了生活上的受限制和极大的不自由，下降的还有我对生活的感知力。
+
+在上爱情美学的课时发现，老师总是对生活中所有的事物具有强烈的感知力，或是花、或是草、一场日落、一首诗、一段文字，甚至是从本校区到东校区之间一段一小时的车程，她总能从中获得一些特别的美学体验。就是在那些瞬间，我才恍然惊醒——什么时候我好像慢慢地丧失了一部分感知力，开始变得有些麻木？与其说是感知力，不如说是感知美的能力，失去了许多生活中的热情。
+
+记得我在微博发过一句话："无止境的输出来自于不断的思考。"感受力的下降给我带来的是思维的停摆，然后就是输出的减少。意识到这件事使我很挫败，我不想要这样，所以我决定改变。我开始给自己找点事情做，这也是我最近写推文的原因。表达实在是一件很有魅力的事情，无论你的文字是不是足够精美、是不是足够有哲思，但是这个世界上总会有人在看到之后和你有一样的感觉。就算我今天只是说一句"我好饿好想吃东西"，也会因为有人在下面说"我也是"而感到奇妙的安慰。所以，表达不是错，表达没有门槛，矫情话很多也没有关系，尽管说你想说的，因为这个世界上总会有人和你情感共振。</div></div>
+        <div class="pexp">▼ 点击展开全文</div>
       </div>
-      <div class="note"><b>感觉</b>：最"新潮"的一版，把文字当影像作品对待；适合想强调"内容创作"属性的你。</div>
     </div>
   </div>
 
   <script>
-    // 方案 B：目录联动 + 荧光笔
-    const chips = document.querySelectorAll('.pb .chip');
-    const arts = document.querySelectorAll('.pb .art');
-    const lit = i => {
-      chips.forEach((c, j) => c.classList.toggle('on', j === i));
-      arts.forEach((a, j) => a.classList.toggle('lit', j === i));
-    };
-    chips.forEach((c, i) => c.addEventListener('click', () => {
-      lit(i);
-      arts[i].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }));
-    const io = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) lit([...arts].indexOf(e.target)); });
-    }, { rootMargin: '-25% 0px -65% 0px' });
-    arts.forEach(a => io.observe(a));
+    document.querySelectorAll('.ms').forEach(ms => {
+      const paper = ms.querySelector('.paper');
+      const pill = ms.querySelector('.pexp');
+      paper.addEventListener('click', () => {
+        const open = ms.classList.toggle('open');
+        pill.textContent = open ? '▲ 收起' : '▼ 点击展开全文';
+      });
+    });
   </script>
 </body>
 </html>
