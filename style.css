@@ -190,8 +190,19 @@ a{color:inherit}
 .deco{position:absolute;z-index:8;cursor:pointer}
 .deco img{display:block;filter:drop-shadow(0 10px 20px rgba(30,60,110,.22));transition:transform .25s, filter .25s}
 .deco:hover img{transform:scale(1.07) rotate(1deg);filter:drop-shadow(0 16px 30px rgba(30,60,110,.32))}
-.deco-phone{left:36%;top:26%;animation:bob 6.5s .6s ease-in-out infinite}
-.deco-phone img{width:210px;height:auto}
+.deco-phone-line{
+  right:369px;top:34px;width:70px;height:864px;
+  z-index:95;transform-origin:50% 0;cursor:grab;
+}
+.deco-phone-line:active{cursor:grabbing}
+.deco-phone-line .pl-cord{
+  position:absolute;left:0;top:0;width:70px;height:679px;overflow:visible;
+  pointer-events:none;filter:drop-shadow(0 6px 12px rgba(242,97,156,.25));
+}
+.deco-phone-line .pl-handset{
+  position:absolute;left:50%;top:679px;transform:translateX(-50%);
+  width:52px;height:auto;pointer-events:none;
+}
 .deco-love{left:26px;bottom:72px;animation:bob 4.5s ease-in-out infinite}
 .deco-love img{width:120px;height:auto}
 .deco-angel{animation:bob 5.5s .4s ease-in-out infinite;z-index:25}
