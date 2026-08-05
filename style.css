@@ -194,7 +194,7 @@ a{color:inherit}
 .deco-phone img{width:210px;height:auto}
 .deco-love{left:26px;bottom:72px;animation:bob 4.5s ease-in-out infinite}
 .deco-love img{width:120px;height:auto}
-.deco-angel{animation:bob 5.5s .4s ease-in-out infinite}
+.deco-angel{animation:bob 5.5s .4s ease-in-out infinite;z-index:25}
 .deco-angel img{width:150px;height:auto}
 .deco-blu{animation:bob 5s 1s ease-in-out infinite}
 .deco-blu img{width:311px;height:auto}
