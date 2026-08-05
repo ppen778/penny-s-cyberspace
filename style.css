@@ -197,6 +197,7 @@ a{color:inherit}
 .deco-phone-line{
   right:299px;top:34px;width:190px;
   z-index:95;
+  pointer-events:none;
   animation:bob 5.5s .8s ease-in-out infinite;
 }
 .deco-phone-line img{
@@ -204,7 +205,7 @@ a{color:inherit}
 }
 .deco-love{left:26px;bottom:72px;animation:bob 4.5s ease-in-out infinite}
 .deco-love img{width:120px;height:auto}
-.deco-angel{position:absolute;right:-24px;bottom:-114px;animation:bob 5.5s .4s ease-in-out infinite;z-index:25}
+.deco-angel{position:absolute;right:-24px;bottom:-114px;animation:bob 5.5s .4s ease-in-out infinite;z-index:25;pointer-events:none}
 .deco-angel img{width:150px;height:auto}
 .deco-blu{animation:bob 5s 1s ease-in-out infinite}
 .deco-blu img{width:311px;height:auto}
@@ -936,6 +937,8 @@ a{color:inherit}
   box-shadow:0 4px 10px rgba(242,97,156,.35);transition:transform .15s;
 }
 .pp-play:hover{transform:scale(1.08)}
+.pp-play.pulse{animation:pppulse .35s ease}
+@keyframes pppulse{0%{transform:scale(1)}40%{transform:scale(.82)}100%{transform:scale(1)}}
 .pp-cover{
   width:38px;height:38px;border-radius:9px;overflow:hidden;flex:none;
   background:linear-gradient(135deg,#EDE986,#E78EF8);
@@ -946,6 +949,12 @@ a{color:inherit}
 .pp-info{flex:1;min-width:0}
 .pp-title{font-size:12px;font-weight:600;color:#1C1B18;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pp-artist{font-size:10.5px;color:var(--gray);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.pp-eq{display:flex;align-items:flex-end;gap:2px;height:14px;flex:none;padding-right:3px}
+.pp-eq i{width:3px;border-radius:2px;background:linear-gradient(180deg,#F2619C,#E78EF8);height:4px;animation:eqbar 1s ease-in-out infinite}
+.pp-eq i:nth-child(2){animation-delay:.22s}
+.pp-eq i:nth-child(3){animation-delay:.44s}
+.pp-eq.paused i{animation-play-state:paused;height:3px;opacity:.45}
+@keyframes eqbar{0%,100%{height:4px}50%{height:14px}}
 .pp-next{
   width:28px;height:28px;border-radius:50%;flex:none;
   border:1.5px solid rgba(28,27,24,.2);background:#fff;color:#5A6B7C;cursor:pointer;font-size:11px;

@@ -148,6 +148,7 @@
           <div class="pp-title" id="ppTitle">点一首歌开始播放</div>
           <div class="pp-artist" id="ppArtist">✦ 选择下面的歌曲</div>
         </div>
+        <span class="pp-eq paused" id="ppEq"><i></i><i></i><i></i></span>
         <button class="pp-next" id="ppNext" type="button" title="下一首">⏭</button>
       </div>
       <div class="pp-progress">
@@ -278,11 +279,13 @@
     const ppRange = document.getElementById('ppRange');
     const ppCur = document.getElementById('ppCur');
     const ppDur = document.getElementById('ppDur');
+    const ppEq = document.getElementById('ppEq');
     const lyricBar = document.getElementById('lyricBar');
     const tracks = {};
     let curId = null, curIdx = -1;
     let lrcLines = [];
     let seeking = false;
+    let tipTimer;
 
     const containerOf = id => id === PL1 ? 'songs1' : 'songs2';
 
@@ -424,6 +427,7 @@
       loadLrc(list[idx]);
       audio.play().then(() => {
         ppPlay.textContent = '⏸';
+        ppEq.classList.remove('paused');
         ppTip.textContent = '';
       }).catch(() => {
         ppTip.textContent = '自动播放被浏览器拦截，点一下播放按钮试试';
@@ -462,6 +466,9 @@
     });
 
     ppPlay.addEventListener('click', () => {
+      ppPlay.classList.remove('pulse');
+      void ppPlay.offsetWidth;
+      ppPlay.classList.add('pulse');
       if (!audio.src) {
         const id = document.querySelector('.pl-tab.active').dataset.id;
         const list = tracks[id];
@@ -469,9 +476,17 @@
         return;
       }
       if (audio.paused) {
-        audio.play().then(() => ppPlay.textContent = '⏸').catch(() => ppTip.textContent = '播放被拦截，请再点一次');
+        audio.play().then(() => {
+          ppPlay.textContent = '⏸';
+          ppEq.classList.remove('paused');
+          ppTip.textContent = '';
+        }).catch(() => ppTip.textContent = '播放被拦截，请再点一次');
       } else {
         audio.pause();
+        ppEq.classList.add('paused');
+        ppTip.textContent = '已暂停 ⏸';
+        clearTimeout(tipTimer);
+        tipTimer = setTimeout(() => { if (ppTip.textContent === '已暂停 ⏸') ppTip.textContent = ''; }, 1400);
       }
     });
 
@@ -482,8 +497,14 @@
     };
     ppNext.addEventListener('click', nextTrack);
     audio.addEventListener('ended', nextTrack);
-    audio.addEventListener('play', () => ppPlay.textContent = '⏸');
-    audio.addEventListener('pause', () => ppPlay.textContent = '▶');
+    audio.addEventListener('play', () => {
+      ppPlay.textContent = '⏸';
+      ppEq.classList.remove('paused');
+    });
+    audio.addEventListener('pause', () => {
+      ppPlay.textContent = '▶';
+      ppEq.classList.add('paused');
+    });
     audio.addEventListener('loadedmetadata', () => {
       ppDur.textContent = fmtTime(audio.duration);
       ppRange.max = audio.duration || 100;
