@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神秘入口 ✦ XINTONG OS</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .gb-title{font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:27px;font-weight:400;letter-spacing:.02em;color:#1C1B18;margin-bottom:4px}
+  .gb-sub{font-size:13px;color:#6B6353;line-height:1.9;margin-bottom:20px}
+
+  /* 互动台 */
+  .gb-stage{
+    position:relative;border-radius:18px;overflow:hidden;
+    background:
+      radial-gradient(circle 5px at 60px 60px, rgba(147,171,217,.35) 4px, transparent 5px),
+      radial-gradient(circle 4px at 140px 180px, rgba(231,142,248,.3) 3px, transparent 4px),
+      linear-gradient(180deg,#FDEFF4 0%,#F3F0FB 60%,#F1F0FB 100%);
+    border:2px solid rgba(28,27,24,.75);box-shadow:5px 5px 0 rgba(28,27,24,.8);
+    display:flex;align-items:center;justify-content:space-evenly;
+    padding:44px 16px 40px;min-height:380px;
+  }
+  .gb-act{
+    position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;
+    border:none;background:transparent;cursor:pointer;padding:0;color:#1C1B18;
+    max-width:210px;
+  }
+  .gb-act .ic{display:block;filter:drop-shadow(0 12px 20px rgba(60,40,90,.25));transition:transform .2s}
+  .gb-act:hover .ic{transform:translateY(-6px) scale(1.05)}
+  .gb-act img{display:block;width:100%}
+  #actCat .ic{width:70px}
+  #actEnv .ic{width:120px}
+  #actStar .ic{width:74px}
+  .gb-act .lbl{
+    font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;
+    font-size:14px;text-align:center;line-height:1.4;
+    background:#fff;border:1.5px solid rgba(28,27,24,.3);border-radius:8px;
+    padding:4px 12px;max-width:190px;transition:background .2s,color .2s;
+  }
+  .gb-act:hover .lbl{background:var(--pink);color:#fff}
+  .gb-act .num{font-size:11px;color:#8A7A5C;text-align:center;line-height:1.6;min-height:18px}
+
+  /* 互动反馈 */
+  .bubble{
+    position:absolute;top:-46px;left:50%;transform:translateX(-50%) rotate(-2deg);
+    font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;
+    font-size:13px;color:#C24D7E;white-space:nowrap;
+    background:#fff;border:1.5px solid rgba(28,27,24,.3);border-radius:8px;
+    padding:4px 11px;box-shadow:2px 2px 0 rgba(28,27,24,.45);
+    opacity:0;pointer-events:none;transition:opacity .2s,top .2s;
+  }
+  .bubble::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#fff}
+  .bubble.show{opacity:1;top:-58px}
+  @keyframes catYell{
+    0%,100%{transform:rotate(0) scale(1)}
+    20%{transform:rotate(-8deg) scale(1.06)}
+    40%{transform:rotate(7deg) scale(1.08)}
+    60%{transform:rotate(-5deg) scale(1.05)}
+    80%{transform:rotate(4deg) scale(1.02)}
+  }
+  .cat-yell{animation:catYell .55s ease}
+  @keyframes starPop{
+    0%{transform:scale(1) rotate(0)}
+    40%{transform:scale(1.28) rotate(12deg)}
+    70%{transform:scale(.94) rotate(-6deg)}
+    100%{transform:scale(1.08) rotate(4deg)}
+  }
+  .star-pop{animation:starPop .5s ease}
+  .float-num{
+    position:absolute;top:4px;left:50%;transform:translateX(-50%);
+    font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:19px;color:#F2619C;
+    pointer-events:none;opacity:0;text-shadow:0 0 8px rgba(242,97,156,.5);
+  }
+  .float-num.fly{animation:floatUp 1s ease forwards}
+  @keyframes floatUp{
+    0%{opacity:0;transform:translateX(-50%) translateY(6px) scale(.8)}
+    20%{opacity:1}
+    100%{opacity:0;transform:translateX(-50%) translateY(-34px) scale(1.15)}
+  }
+
+  /* 写信窗口 */
+  .gb-modal{
+    position:fixed;inset:0;background:rgba(40,30,60,.35);display:none;
+    align-items:center;justify-content:center;z-index:60;backdrop-filter:blur(3px);
+  }
+  .gb-modal.open{display:flex}
+  .gb-panel{
+    width:470px;max-width:92vw;background:rgba(255,255,255,.98);border-radius:16px;
+    border:2px solid rgba(28,27,24,.2);box-shadow:0 24px 60px rgba(30,40,80,.3);
+    overflow:hidden;transform:translateY(14px);transition:transform .3s;
+  }
+  .gb-modal.open .gb-panel{transform:none}
+  .gb-panel .p-head{
+    display:flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;
+    border-bottom:1px solid rgba(17,17,17,.08);
+    font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:15px;
+  }
+  .gb-panel .p-head .x{
+    margin-left:auto;width:22px;height:22px;border-radius:50%;border:none;
+    background:#E9EEF4;color:#5A6B7C;cursor:pointer;font-size:11px;
+  }
+  .gb-panel .p-head .x:hover{background:var(--pink);color:#fff}
+  .gb-panel .p-body{padding:18px 20px 20px}
+  .gb-panel label{display:block;font-size:12.5px;color:#6B6353;margin:10px 0 6px}
+  .gb-panel input,.gb-panel textarea{
+    width:100%;border:1.5px solid rgba(28,27,24,.25);border-radius:10px;padding:10px 12px;
+    font-size:14px;font-family:inherit;background:#fff;outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .gb-panel input:focus,.gb-panel textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(242,97,156,.18)}
+  .gb-panel textarea{height:120px;resize:vertical;line-height:1.8}
+  .gb-send{
+    width:100%;margin-top:16px;border:none;cursor:pointer;
+    font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:17px;letter-spacing:.06em;color:#fff;
+    background:linear-gradient(90deg,#F2619C,#E78EF8);border-radius:999px;padding:12px;
+    box-shadow:0 8px 20px rgba(242,97,156,.35);transition:transform .2s, box-shadow .2s;
+  }
+  .gb-send:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(242,97,156,.45)}
+  .gb-send:active{transform:scale(.97)}
+
+  /* 投递动画 */
+  .fly-wrap{position:fixed;inset:0;pointer-events:none;z-index:70;display:none}
+  .fly-wrap.on{display:block}
+  .fly-wrap img{
+    position:absolute;left:50%;top:44%;width:110px;
+    transform:translate(-50%,-50%) rotate(0) scale(1);
+    transition:transform 1s cubic-bezier(.3,.7,.3,1), opacity .5s .5s;
+    filter:drop-shadow(0 10px 18px rgba(242,97,156,.45));
+  }
+  .fly-wrap.on img{transform:translate(250px,190px) rotate(-18deg) scale(.45);opacity:0}
+  .toast{
+    position:fixed;left:50%;bottom:46px;transform:translate(-50%,20px);
+    background:#1C1B18;color:#fff;font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;
+    font-size:15px;letter-spacing:.04em;padding:10px 22px;border-radius:999px;
+    opacity:0;transition:all .4s .9s;z-index:80;pointer-events:none;
+    box-shadow:0 10px 24px rgba(0,0,0,.3);white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  /* 留言板 */
+  .gb-board{margin-top:28px}
+  .gb-board h2{font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:19px;font-weight:400;margin-bottom:4px}
+  .gb-board .bn{font-size:12px;color:#8A7A5C;margin-bottom:14px}
+  .gb-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:18px}
+  .gb-card{
+    position:relative;background:#fff;border:1.5px solid rgba(28,27,24,.16);border-radius:12px;
+    padding:16px 16px 12px;box-shadow:0 8px 18px rgba(60,40,90,.1);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .gb-card:nth-child(3n+1){transform:rotate(-1.2deg)}
+  .gb-card:nth-child(3n+2){transform:rotate(1deg)}
+  .gb-card:nth-child(3n){transform:rotate(-.5deg)}
+  .gb-card:hover{transform:rotate(0) translateY(-4px);box-shadow:0 14px 28px rgba(60,40,90,.18)}
+  .gb-card::before{
+    content:"";position:absolute;left:50%;top:-7px;width:56px;height:16px;transform:translateX(-50%) rotate(-2deg);
+    background:rgba(242,97,156,.28);
+    border-left:2px dashed rgba(255,255,255,.85);border-right:2px dashed rgba(255,255,255,.85);
+  }
+  .gb-card .who{font-family:'ZCOOL KuaiLe','Microsoft YaHei',sans-serif;font-size:14px;color:#C24D7E}
+  .gb-card .msg{font-size:13px;color:#2A2A2A;line-height:1.85;margin-top:6px;white-space:pre-wrap;word-break:break-word}
+  .gb-card .time{font-size:10.5px;color:#A99A84;margin-top:10px}
+  .gb-card .stamp{
+    position:absolute;right:10px;top:10px;font-size:9.5px;color:#7A6A3E;letter-spacing:.08em;
+    border:1.5px solid rgba(237,233,134,.9);border-radius:6px;padding:2px 6px;background:#FBF6D9;transform:rotate(6deg);
+  }
+  .gb-empty{font-size:13px;color:#A99A84;text-align:center;padding:34px 0}
+  .gb-note{
+    margin-top:22px;font-size:12px;color:#5A5548;background:#fff;
+    border:1px solid rgba(28,27,24,.16);border-radius:10px;padding:9px 14px;line-height:1.9;
+  }
+  .gb-note b{color:#C24D7E}
+  @media (max-width:720px){
+    .gb-stage{flex-direction:column;gap:34px;padding:40px 12px}
+    .gb-act .num{max-width:200px}
+  }
+</style>
+</head>
+<body>
+
+<div class="menubar">
+  <div class="left">
+    <a class="brand" href="index.html?skipboot=1">XINTONG<b> OS</b> ✦ 盆盆</a>
+    <a class="menu-item" href="index.html?skipboot=1">首页</a>
+    <a class="menu-item" href="projects.html">作品</a>
+    <a class="menu-item" href="experience.html">经历</a>
+    <a class="menu-item" href="contact.html">联系</a>
+  </div>
+  <div class="clock"></div>
+</div>
+
+<div class="desktop">
+  <div class="dots"></div>
+  <svg class="star" style="width:18px;left:6%;top:14%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+  <svg class="star" style="width:13px;right:5%;top:26%;animation-delay:.6s" viewBox="0 0 64 64"><path fill="#E78EF8" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+  <svg class="star" style="width:11px;right:8%;bottom:30%;animation-delay:1.1s" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+
+  <div class="back-bar">
+    <a href="index.html?skipboot=1">✕ 回到桌面</a>
+    <a href="contact.html">联系我 →</a>
+  </div>
+
+  <div class="win page-win">
+    <div class="titlebar"><span class="win-icon" style="background:#E78EF8"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.2"><path d="M1.5 3h9v6.5H6L2.5 10z" stroke-linejoin="round"/></svg></span><span class="ttl">Guestbook <b>✦</b> 一个神秘入口</span><span class="now">now</span><a class="close" href="index.html?skipboot=1">✕</a></div>
+    <div class="body">
+      <h1 class="gb-title">留言板 ✦</h1>
+      <div class="gb-sub">欢迎光临我的赛博小家，如果今天没事干的话可以和我一起看一整天的电视。</div>
+
+      <div class="gb-stage">
+        <span class="star" style="left:7%;top:16%;font-size:18px">✦</span>
+        <span class="star s2" style="left:92%;top:20%;font-size:13px">✦</span>
+        <span class="star s3" style="left:90%;bottom:14%;font-size:16px">✦</span>
+        <span class="star s2" style="left:5%;bottom:16%;font-size:11px">✦</span>
+
+        <button class="gb-act" id="actCat" type="button" title="只是大叫一声什么也不做">
+          <span class="bubble" id="catBubble">啊！！！</span>
+          <span class="float-num" id="catFloat">啊 +1 ✦</span>
+          <span class="ic"><img src="assets/deco/cat.png" alt="猫"></span>
+          <span class="lbl">只是大叫一声什么也不做</span>
+          <span class="num" id="yellNum">有 0 人在这里大叫了</span>
+        </button>
+
+        <button class="gb-act" id="actEnv" type="button" title="给我写点什么">
+          <span class="ic"><img src="assets/deco/envelope.png" alt="信封"></span>
+          <span class="lbl">给我写点什么</span>
+          <span class="num" id="writeNum">有 0 人给我留了言</span>
+        </button>
+
+        <button class="gb-act" id="actStar" type="button" title="送我星星">
+          <span class="bubble" id="starBubble">✨</span>
+          <span class="float-num" id="starFloat">+1 星星 ✦</span>
+          <span class="ic"><img src="assets/deco/star.png" alt="点赞"></span>
+          <span class="lbl">送我星星</span>
+          <span class="num" id="starNum">有 0 人送了盆盆星星</span>
+        </button>
+      </div>
+
+      <div class="gb-board">
+        <h2>留言板 ✦ Message Board</h2>
+        <div class="bn" id="boardNum">已经有 0 个人到达过这里</div>
+        <div class="gb-cards" id="cards"></div>
+      </div>
+
+      <div class="gb-note">这里是我的赛博留言板，我偶尔会回来看看。</div>
+    </div>
+  </div>
+</div>
+
+<div class="gb-modal" id="writeWin">
+  <div class="gb-panel">
+    <div class="p-head">✉ 给盆盆寄一封信<span class="x" id="closeWin">✕</span></div>
+    <div class="p-body">
+      <label>你的昵称</label>
+      <input id="nick" maxlength="16" placeholder="比如：麻薯的朋友">
+      <label>想说的话</label>
+      <textarea id="msg" maxlength="300" placeholder="可以给我写点啥，不写踩踩也行。"></textarea>
+      <button class="gb-send" id="sendBtn">投递 ✦</button>
+    </div>
+  </div>
+</div>
+
+<div class="fly-wrap" id="flyWrap"><img src="assets/deco/envelope.png" alt=""></div>
+<div class="toast" id="toast">叮咚～ 你的信已经送达 ✦</div>
+
+<script src="assets/edit.js"></script>
+<script src="assets/clock.js"></script>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+<script>
+  (function () {
+    const ENV = 'https://twikoo-alpha-six-15.vercel.app/';
+    const PATH_MSG = '/guestbook';
+    const PATH_YELL = '/counter/yell';
+    const PATH_STAR = '/counter/star';
+
+    let uid = localStorage.getItem('twikoo-uid');
+    if (!uid) {
+      uid = (crypto.randomUUID ? crypto.randomUUID() : 'u' + Date.now() + Math.random().toString(16).slice(2)).replace(/-/g, '');
+      localStorage.setItem('twikoo-uid', uid);
+    }
+
+    function tcall(event, data) {
+      return fetch(ENV, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event, accessToken: uid, ...data })
+      }).then(r => r.json()).then(res => {
+        if (res.code && res.code !== 0) throw new Error(res.message || '请求失败');
+        return res;
+      });
+    }
+
+    const getCount = url => tcall('COMMENT_GET', { url, pageSize: 1 }).then(res => res.count || 0);
+    const postComment = (url, nick, comment) =>
+      tcall('COMMENT_SUBMIT', { url, ua: navigator.userAgent, nick, mail: '', link: '', comment });
+
+    const $ = id => document.getElementById(id);
+    const cards = $('cards');
+    const toast = $('toast');
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function fmtTime(ts) {
+      const d = new Date(ts);
+      const p = n => String(n).padStart(2, '0');
+      return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+    }
+
+    function renderMessages(list) {
+      cards.innerHTML = '';
+      if (!list || !list.length) {
+        cards.innerHTML = '<div class="gb-empty">还没有来信，来做第一个留言的人吧 ✦</div>';
+        return;
+      }
+      list.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'gb-card';
+        let text = c.commentText || '';
+        if (!text) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = c.comment || '';
+          text = tmp.textContent || '';
+        }
+        el.innerHTML = '<span class="stamp">已送达</span><div class="who"></div><div class="msg"></div><div class="time"></div>';
+        el.querySelector('.who').textContent = c.nick || '匿名';
+        el.querySelector('.msg').textContent = text;
+        el.querySelector('.time').textContent = fmtTime(c.created);
+        cards.appendChild(el);
+      });
+    }
+
+    async function loadBoard() {
+      try {
+        const res = await tcall('COMMENT_GET', { url: PATH_MSG, pageSize: 100 });
+        const list = (res.data || []).slice().sort((a, b) => (b.created || 0) - (a.created || 0));
+        renderMessages(list);
+      } catch (e) {
+        cards.innerHTML = '<div class="gb-empty">留言加载失败，刷新一下试试 ✦</div>';
+      }
+    }
+
+    async function refreshCounts() {
+      try {
+        const [mc, yc, sc] = await Promise.all([getCount(PATH_MSG), getCount(PATH_YELL), getCount(PATH_STAR)]);
+        $('writeNum').textContent = '有 ' + mc + ' 人给我留了言';
+        $('yellNum').textContent = '有 ' + yc + ' 人在这里大叫了';
+        $('starNum').textContent = '有 ' + sc + ' 人送了盆盆星星';
+        $('boardNum').textContent = '已经有 ' + mc + ' 个人到达过这里';
+      } catch (e) { /* 网络异常时保留当前数字 */ }
+    }
+
+    function popBubble(el) {
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 1400);
+    }
+    function popFloat(el) {
+      el.classList.remove('fly');
+      void el.offsetWidth;
+      el.classList.add('fly');
+    }
+    function bump(el, delta) {
+      const m = el.textContent.match(/(\d+)/);
+      if (m) el.textContent = el.textContent.replace(m[1], String(parseInt(m[1], 10) + delta));
+    }
+
+    // 猫：大叫
+    let catPending = false;
+    $('actCat').addEventListener('click', async () => {
+      const ic = document.querySelector('#actCat .ic');
+      ic.classList.remove('cat-yell');
+      void ic.offsetWidth;
+      ic.classList.add('cat-yell');
+      if (localStorage.getItem('gb_yelled')) {
+        popBubble($('catBubble'));
+        showToast('你已经大叫过啦 ✦ 把机会留给下一位路过的猫吧');
+        return;
+      }
+      if (catPending) return;
+      catPending = true;
+      bump($('yellNum'), 1);
+      try {
+        await postComment(PATH_YELL, '一只路过的猫', '啊！');
+        localStorage.setItem('gb_yelled', '1');
+        popBubble($('catBubble'));
+        popFloat($('catFloat'));
+        await refreshCounts();
+      } catch (e) {
+        bump($('yellNum'), -1);
+        showToast('网络好像开小差了，稍后再试～');
+      }
+      catPending = false;
+    });
+
+    // 星星：点赞
+    let starPending = false;
+    $('actStar').addEventListener('click', async () => {
+      const ic = document.querySelector('#actStar .ic');
+      ic.classList.remove('star-pop');
+      void ic.offsetWidth;
+      ic.classList.add('star-pop');
+      if (localStorage.getItem('gb_starred')) {
+        popBubble($('starBubble'));
+        showToast('星星已经送过啦 ✦ 谢谢你～');
+        return;
+      }
+      if (starPending) return;
+      starPending = true;
+      bump($('starNum'), 1);
+      try {
+        await postComment(PATH_STAR, '星星收集员', '🌟');
+        localStorage.setItem('gb_starred', '1');
+        popBubble($('starBubble'));
+        popFloat($('starFloat'));
+        await refreshCounts();
+      } catch (e) {
+        bump($('starNum'), -1);
+        showToast('网络好像开小差了，稍后再试～');
+      }
+      starPending = false;
+    });
+
+    // 信封：写信
+    const win = $('writeWin');
+    $('actEnv').addEventListener('click', () => win.classList.add('open'));
+    $('closeWin').addEventListener('click', () => win.classList.remove('open'));
+    win.addEventListener('click', e => { if (e.target === win) win.classList.remove('open'); });
+
+    let sendPending = false;
+    $('sendBtn').addEventListener('click', async () => {
+      if (sendPending) return;
+      const n = $('nick').value.trim();
+      const m = $('msg').value.trim();
+      if (!n) { $('nick').focus(); $('nick').style.borderColor = '#FF2D55'; return; }
+      if (!m) { $('msg').focus(); $('msg').style.borderColor = '#FF2D55'; return; }
+      $('nick').style.borderColor = '';
+      $('msg').style.borderColor = '';
+      sendPending = true;
+      bump($('writeNum'), 1);
+      bump($('boardNum'), 1);
+      try {
+        await postComment(PATH_MSG, n, m);
+        win.classList.remove('open');
+        $('flyWrap').classList.add('on');
+        setTimeout(() => $('toast').classList.add('show'), 500);
+        setTimeout(() => {
+          $('flyWrap').classList.remove('on');
+          $('toast').classList.remove('show');
+        }, 2300);
+        $('nick').value = '';
+        $('msg').value = '';
+        await Promise.all([refreshCounts(), loadBoard()]);
+      } catch (e) {
+        bump($('writeNum'), -1);
+        bump($('boardNum'), -1);
+        showToast('投递失败，稍后再试～');
+      }
+      sendPending = false;
+    });
+
+    loadBoard();
+    refreshCounts();
+  })();
+</script>
+</body>
+</html>
