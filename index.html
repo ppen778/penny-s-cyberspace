@@ -45,12 +45,8 @@
     <span class="lamp-cord"></span>
     <img src="assets/deco/lamp.png" alt="路灯">
   </div>
-  <div class="deco deco-phone-line" id="phoneLine" title="粉色电话线">
-    <svg class="pl-cord" viewBox="0 0 70 679" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M35 0 C22 150 58 300 30 520 L33 679" fill="none" stroke="#F2619C" stroke-width="2.6" stroke-linecap="round"/>
-      <circle cx="35" cy="5" r="3.5" fill="#F2619C"/>
-    </svg>
-    <img class="pl-handset" src="assets/deco/handset.png" alt="粉色电话">
+  <div class="deco deco-phone-line" title="粉色电话线">
+    <img src="assets/deco/phone.png" alt="粉色电话">
   </div>
   <div class="deco deco-love" style="--rot:-5deg" title="我爱你">
     <img src="assets/deco/love.png" alt="我爱你">
@@ -200,75 +196,6 @@
       document.addEventListener('mouseup', up);
     });
   });
-</script>
-<script>
-  // 粉色电话线：挂绳式摆动（参考 lanyard 的物理手感）
-  (function () {
-    const line = document.getElementById('phoneLine');
-    if (!line) return;
-    const R2D = 180 / Math.PI;
-    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-    const limit = 0.6; // 最大摆角（弧度，约 34°）
-    let ang = 0, vel = 0, dragging = false, lastAng = 0, lastT = 0;
-
-    function render() {
-      line.style.transform = 'translateX(50%) rotate(' + (ang * R2D) + 'deg)';
-    }
-    function pivotX() {
-      const r = line.getBoundingClientRect();
-      return r.left + r.width / 2;
-    }
-    function lengthPx() {
-      return Math.max(1, line.getBoundingClientRect().height);
-    }
-
-    line.addEventListener('pointerdown', e => {
-      dragging = true;
-      line.classList.add('dragging');
-      line.setPointerCapture(e.pointerId);
-      lastAng = ang;
-      lastT = performance.now();
-      ang = clamp(Math.atan((e.clientX - pivotX()) / lengthPx()), -limit, limit);
-      render();
-      e.preventDefault();
-    });
-    line.addEventListener('pointermove', e => {
-      if (!dragging) return;
-      const now = performance.now();
-      const dt = Math.max(1, now - lastT) / 1000;
-      const prev = ang;
-      ang = clamp(Math.atan((e.clientX - pivotX()) / lengthPx()), -limit, limit);
-      vel = (ang - prev) / dt * 0.85;
-      lastAng = ang;
-      lastT = now;
-      render();
-    });
-    const release = () => {
-      if (!dragging) return;
-      dragging = false;
-      line.classList.remove('dragging');
-    };
-    line.addEventListener('pointerup', release);
-    line.addEventListener('pointercancel', release);
-
-    let lastFrame = performance.now();
-    function tick(now) {
-      const dt = Math.min(64, now - lastFrame) / 1000;
-      lastFrame = now;
-      if (!dragging) {
-        const k = 12.5, c = 0.16; // 单摆：α = -k·θ - c·ω
-        vel += (-k * ang - c * vel) * dt;
-        ang += vel * dt;
-        if (Math.abs(ang) < 0.06 && Math.abs(vel) < 0.1) {
-          vel += (Math.random() > 0.5 ? 1 : -1) * 0.45; // 轻轻补力，保持一直晃动
-        }
-        ang = clamp(ang, -limit, limit);
-        render();
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  })();
 </script>
 <script src="assets/edit.js"></script>
 <script src="assets/clock.js"></script>
