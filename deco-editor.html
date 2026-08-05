@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桌面装饰排版工具 ✦ 自由拖拽</title>
+<style>
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:linear-gradient(180deg,#FDEFF4,#F3F0FB);
+    font-family:"Microsoft YaHei",sans-serif;
+    padding:30px 40px 50px;color:#1C1B18;
+  }
+  h1{font-family:'ZKuaile';font-size:25px;font-weight:400;letter-spacing:.02em;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:14px;line-height:1.9}
+  .sub b{color:#C24D7E}
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px;
+    background:#fff;border:1.5px solid rgba(28,27,24,.25);border-radius:12px;padding:9px 14px;
+    box-shadow:3px 3px 0 rgba(28,27,24,.55);
+  }
+  .toolbar label{font-size:12.5px;display:inline-flex;align-items:center;gap:6px}
+  .toolbar select,.toolbar button{
+    font-family:'ZKuaile';font-size:12.5px;padding:4px 10px;border-radius:8px;
+    border:1.5px solid rgba(28,27,24,.35);background:#fff;cursor:pointer;
+  }
+  .toolbar button:hover{background:#F2619C;color:#fff;border-color:#F2619C}
+  .cards{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .card{
+    background:#fff;border:1.5px solid rgba(28,27,24,.25);border-radius:12px;padding:10px 14px;
+    font-size:12px;box-shadow:2px 2px 0 rgba(28,27,24,.45);min-width:300px;
+  }
+  .card h3{font-family:'ZKuaile';font-size:14px;font-weight:400;margin-bottom:6px}
+  .card .row{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:12px;color:#5A5548}
+  .card input[type=range]{flex:1}
+  .card .v{font-family:'ZKuaile';min-width:52px;color:#C24D7E}
+  .stage-wrap{position:relative;background:rgba(255,255,255,.5);border-radius:14px;padding:10px;border:1px dashed rgba(28,27,24,.3)}
+  .stage{
+    position:relative;width:1440px;height:900px;overflow:hidden;
+    background:linear-gradient(180deg,#FDEFF4 0%,#F3F0FB 60%,#F1F0FB 100%);
+    border:2px solid rgba(28,27,24,.75);border-radius:14px;
+    box-shadow:5px 5px 0 rgba(28,27,24,.8);
+    transform-origin:top left;
+  }
+  .stage .ref-zone{
+    position:absolute;border-radius:10px;border:1.5px dashed rgba(28,27,24,.28);
+    background:rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:rgba(28,27,24,.4);letter-spacing:.05em;
+  }
+  .stage .ref-icon{
+    position:absolute;border-radius:12px;border:1.5px dashed rgba(28,27,24,.22);
+    background:rgba(231,142,248,.08);display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:rgba(28,27,24,.38);
+  }
+  .stage .old{position:absolute;opacity:.42;pointer-events:none}
+  .newdeco{position:absolute;cursor:grab;touch-action:none;user-select:none}
+  .newdeco.drag{cursor:grabbing}
+  .newdeco.sel{outline:2px solid #F2619C;outline-offset:3px;border-radius:10px}
+  .newdeco img{display:block;width:100%;height:auto;pointer-events:none;filter:drop-shadow(0 10px 20px rgba(30,60,110,.25))}
+  .newdeco .resize{
+    position:absolute;right:-9px;bottom:-9px;width:18px;height:18px;border-radius:50%;
+    background:#F2619C;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);
+    cursor:nwse-resize;display:none;z-index:5;
+  }
+  .newdeco.sel .resize{display:block}
+  .newdeco .tag{
+    position:absolute;top:-24px;left:50%;transform:translateX(-50%);
+    font-family:'ZKuaile';font-size:11px;color:#fff;background:#1C1B18;
+    border-radius:6px;padding:2px 9px;white-space:nowrap;display:none;
+  }
+  .newdeco.sel .tag{display:block}
+  .status{
+    margin-top:12px;font-size:12px;color:#5A5548;line-height:1.9;
+    background:#fff;border:1px solid rgba(28,27,24,.16);border-radius:10px;padding:8px 14px;
+  }
+  .status b{color:#C24D7E}
+  .export-wrap{margin-top:12px;display:none}
+  .export-wrap textarea{
+    width:100%;height:88px;font-size:12.5px;line-height:1.9;padding:10px 14px;
+    border:1.5px solid rgba(28,27,24,.3);border-radius:10px;resize:vertical;background:#fff;
+  }
+  .export-wrap.show{display:block}
+</style>
+</head>
+<body>
+  <h1>桌面装饰排版工具 ✦ 自由拖拽</h1>
+  <div class="sub">只保留 <b>天使娃娃</b> 与 <b>蓝紫色</b>。拖动贴纸移动，拖<b>右下角粉色圆点</b>缩放，右侧滑块可微调尺寸与角度。灰色虚线是窗口 / 图标区，半透明是原有装饰，作参考。</div>
+
+  <div class="toolbar">
+    <label>显示 <select id="zoomSel">
+      <option value="fit">适应窗口</option>
+      <option value="1">100%</option>
+      <option value="0.75">75%</option>
+      <option value="0.5">50%</option>
+    </select></label>
+    <label><input type="checkbox" id="showRef" checked> 显示参考区</label>
+    <button id="resetBtn" type="button">重置布局</button>
+    <button id="exportBtn" type="button">导出排版参数</button>
+  </div>
+
+  <div class="cards">
+    <div class="card" data-k="angel">
+      <h3>✦ 天使娃娃 ANGEL</h3>
+      <div class="row"><span>大小</span><input type="range" data-f="width" min="60" max="420" step="2"><span class="v">150px</span></div>
+      <div class="row"><span>角度</span><input type="range" data-f="rot" min="-15" max="15" step="0.5"><span class="v">0°</span></div>
+    </div>
+    <div class="card" data-k="blu">
+      <h3>✦ 蓝紫色 BLU</h3>
+      <div class="row"><span>大小</span><input type="range" data-f="width" min="60" max="480" step="2"><span class="v">220px</span></div>
+      <div class="row"><span>角度</span><input type="range" data-f="rot" min="-15" max="15" step="0.5"><span class="v">0°</span></div>
+    </div>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+      <div class="ref ref-zone" style="left:760px;top:56px;width:290px;height:380px">关于我窗口</div>
+      <div class="ref ref-zone" style="left:1092px;top:56px;width:300px;height:560px">歌单窗口</div>
+      <div class="ref ref-zone" style="left:1092px;top:392px;width:300px;height:250px">社媒窗口</div>
+      <div class="ref ref-icon" style="left:14px;top:56px;width:190px;height:400px">六个女孩图标区</div>
+      <div class="ref old"><img src="assets/deco/lamp.png" style="width:140px;height:auto;position:absolute;left:432px;top:34px" alt="路灯"></div>
+      <div class="ref old"><img src="assets/deco/phone.png" style="width:210px;height:auto;position:absolute;left:518px;top:250px" alt="粉色电话"></div>
+      <div class="ref old"><img src="assets/deco/love.png" style="width:120px;height:auto;position:absolute;left:26px;bottom:72px" alt="我爱你"></div>
+
+      <div class="newdeco" data-k="angel">
+        <span class="tag">天使娃娃</span>
+        <img src="assets/deco/angel.png" alt="天使娃娃">
+        <span class="resize"></span>
+      </div>
+      <div class="newdeco" data-k="blu">
+        <span class="tag">蓝紫色</span>
+        <img src="assets/deco/blu.png" alt="蓝紫色">
+        <span class="resize"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="export-wrap" id="exportWrap">
+    <div class="status" style="margin-top:0">复制下面的参数发给我，我就会按这个位置落到真实桌面上：</div>
+    <textarea id="exportText" readonly spellcheck="false"></textarea>
+  </div>
+
+  <script>
+    (function () {
+      const STAGE_W = 1440, STAGE_H = 900;
+      const KEY = 'deco-layout-v1';
+      const DEFAULTS = {
+        angel: { left: 600, top: 80, width: 150, rot: -2.5 },
+        blu:   { left: 580, top: 700, width: 220, rot: 2 }
+      };
+      const stage = document.getElementById('stage');
+      const els = {
+        angel: document.querySelector('.newdeco[data-k="angel"]'),
+        blu:   document.querySelector('.newdeco[data-k="blu"]')
+      };
+      let state = {};
+      let topZ = 10;
+
+      function load() {
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (raw) {
+            const p = JSON.parse(raw);
+            if (p.angel && p.blu) { state = p; return; }
+          }
+        } catch (e) {}
+        state = JSON.parse(JSON.stringify(DEFAULTS));
+      }
+      function save() {
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      }
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+      function apply() {
+        for (const k of ['angel', 'blu']) {
+          const s = state[k];
+          const el = els[k];
+          el.style.left = s.left + 'px';
+          el.style.top = s.top + 'px';
+          el.style.width = s.width + 'px';
+          el.style.transform = 'rotate(' + s.rot + 'deg)';
+          const card = document.querySelector('.card[data-k="' + k + '"]');
+          card.querySelector('[data-f="width"]').value = s.width;
+          card.querySelector('[data-f="rot"]').value = s.rot;
+          card.querySelectorAll('.v')[0].textContent = s.width + 'px';
+          card.querySelectorAll('.v')[1].textContent = s.rot + '°';
+        }
+        renderStatus();
+      }
+
+      function renderStatus() {
+        const t = [];
+        for (const k of ['angel', 'blu']) {
+          const s = state[k];
+          t.push('<b>' + (k === 'angel' ? '天使娃娃' : '蓝紫色') + '</b> left:' + Math.round(s.left) + 'px · top:' + Math.round(s.top) + 'px · 宽 ' + Math.round(s.width) + 'px · 旋转 ' + s.rot + '°');
+        }
+        document.getElementById('status').innerHTML = t.join('　');
+      }
+
+      function stagePos(e) {
+        const rect = stage.getBoundingClientRect();
+        return {
+          x: (e.clientX - rect.left) * STAGE_W / rect.width,
+          y: (e.clientY - rect.top) * STAGE_H / rect.height
+        };
+      }
+
+      function select(k) {
+        for (const key of ['angel', 'blu']) {
+          els[key].classList.toggle('sel', key === k);
+        }
+      }
+
+      for (const k of ['angel', 'blu']) {
+        const el = els[k];
+        el.addEventListener('pointerdown', e => {
+          if (e.target.classList.contains('resize')) return;
+          select(k);
+          el.setPointerCapture(e.pointerId);
+          el.classList.add('drag');
+          el.style.zIndex = ++topZ;
+          const p = stagePos(e);
+          const start = { x: p.x - state[k].left, y: p.y - state[k].top };
+          const move = ev => {
+            const q = stagePos(ev);
+            state[k].left = clamp(Math.round(q.x - start.x), -30, STAGE_W - 40);
+            state[k].top = clamp(Math.round(q.y - start.y), 0, STAGE_H - 40);
+            apply(); save();
+          };
+          const up = () => {
+            el.classList.remove('drag');
+            el.removeEventListener('pointermove', move);
+            el.removeEventListener('pointerup', up);
+            el.removeEventListener('pointercancel', up);
+          };
+          el.addEventListener('pointermove', move);
+          el.addEventListener('pointerup', up);
+          el.addEventListener('pointercancel', up);
+          e.preventDefault();
+        });
+
+        const rz = el.querySelector('.resize');
+        rz.addEventListener('pointerdown', e => {
+          e.stopPropagation();
+          select(k);
+          el.setPointerCapture(e.pointerId);
+          el.style.zIndex = ++topZ;
+          const p = stagePos(e);
+          const start = { w: state[k].width, x: p.x };
+          const move = ev => {
+            const q = stagePos(ev);
+            state[k].width = clamp(Math.round(start.w + (q.x - start.x)), 60, 600);
+            apply(); save();
+          };
+          const up = () => {
+            el.removeEventListener('pointermove', move);
+            el.removeEventListener('pointerup', up);
+            el.removeEventListener('pointercancel', up);
+          };
+          el.addEventListener('pointermove', move);
+          el.addEventListener('pointerup', up);
+          el.addEventListener('pointercancel', up);
+          e.preventDefault();
+        });
+      }
+
+      document.querySelectorAll('.card input[type=range]').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const k = inp.closest('.card').dataset.k;
+          state[k][inp.dataset.f] = parseFloat(inp.value);
+          apply(); save();
+        });
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        state = JSON.parse(JSON.stringify(DEFAULTS));
+        apply(); save();
+      });
+
+      document.getElementById('exportBtn').addEventListener('click', () => {
+        const rows = [];
+        for (const k of ['angel', 'blu']) {
+          const s = state[k];
+          const name = k === 'angel' ? '天使娃娃' : '蓝紫色';
+          rows.push('【' + name + '】 left:' + Math.round(s.left) + 'px  top:' + Math.round(s.top) + 'px  width:' + Math.round(s.width) + 'px  rotate:' + s.rot + 'deg');
+        }
+        const txt = rows.join('\n');
+        const ta = document.getElementById('exportText');
+        ta.value = txt;
+        document.getElementById('exportWrap').classList.add('show');
+        ta.focus(); ta.select();
+        try {
+          navigator.clipboard.writeText(txt).then(() => {
+            const b = document.getElementById('exportBtn');
+            b.textContent = '已复制 ✓';
+            setTimeout(() => { b.textContent = '导出排版参数'; }, 1600);
+          }).catch(() => {});
+        } catch (e) {}
+      });
+
+      document.getElementById('showRef').addEventListener('change', e => {
+        stage.querySelectorAll('.ref').forEach(el => {
+          el.style.display = e.target.checked ? '' : 'none';
+        });
+      });
+
+      function setZoom(z) {
+        if (z === 'fit') {
+          z = Math.min(1, (window.innerWidth - 120) / STAGE_W);
+          z = Math.max(0.3, z);
+        }
+        z = parseFloat(z);
+        stage.style.transform = 'scale(' + z + ')';
+        stage.parentElement.style.height = (STAGE_H * z + 24) + 'px';
+      }
+      document.getElementById('zoomSel').addEventListener('change', e => setZoom(e.target.value));
+      window.addEventListener('resize', () => {
+        const sel = document.getElementById('zoomSel');
+        if (sel.value === 'fit') setZoom('fit');
+      });
+
+      load();
+      apply();
+      select('angel');
+      setZoom('fit');
+    })();
+  </script>
+</body>
+</html>
