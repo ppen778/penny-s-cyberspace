@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
+  <ul class="mini-list">
+    <li><span class="num">01</span><span class="mask"><span style="display:block;transform:translateY(115%)">测试文字一</span></span></li>
+    <li><span class="num">02</span><span class="mask"><span style="display:block;transform:translateY(115%)">测试文字二</span></span></li>
+  </ul>
+  <script src="assets/lib/gsap.min.js"></script>
+  <script>
+    gsap.fromTo('.mini-list .mask > span', { yPercent: 115 }, { yPercent: 0, duration: 1, ease: 'power4.out', delay: 0.2 });
+  </script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

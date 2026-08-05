@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>背景色预览 ✦ 选一个</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#EFECE3;font-family:"Microsoft YaHei",sans-serif;padding:34px 30px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:26px}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .panel{
+    position:relative;height:460px;border-radius:16px;overflow:hidden;
+    border:2px solid #1C1B18;box-shadow:6px 6px 0 rgba(28,27,24,.8);
+  }
+  .panel .dots{
+    position:absolute;inset:0;
+    background-image:radial-gradient(rgba(140,175,210,.3) 1.2px, transparent 1.2px);
+    background-size:20px 20px;
+  }
+  .panel .win{
+    position:absolute;width:190px;border-radius:12px;
+    background:rgba(255,255,255,.94);border:1px solid rgba(17,17,17,.1);
+    box-shadow:0 14px 30px rgba(30,60,110,.16);
+  }
+  .panel .win .bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 10px;font-size:11px;font-weight:700;border-bottom:1px solid rgba(17,17,17,.07)}
+  .panel .win .bar .ic{width:16px;height:16px;border-radius:5px;background:#F2619C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px}
+  .panel .win .bd{padding:12px 14px;font-size:12px;color:#333}
+  .panel .win .row{border-bottom:1px solid #EEF0F5;padding:6px 0}
+  .panel .w1{left:26px;top:26px;width:210px}
+  .panel .w2{right:26px;top:40px;width:180px}
+  .panel .star{position:absolute;width:24px;height:24px}
+  .panel .tag{
+    position:absolute;left:12px;top:12px;z-index:6;
+    font-size:12px;font-weight:800;background:#FFD34D;
+    border:1.5px solid #1C1B18;border-radius:8px;padding:4px 10px;
+  }
+  .desc{margin-top:10px;font-size:12.5px;color:#5A5548;line-height:1.8;background:#fff;border:1px solid rgba(28,27,24,.18);border-radius:10px;padding:10px 12px}
+  .opt1{background:linear-gradient(180deg,#FDEFF4 0%,#F1F0FB 100%)}
+  .opt2{background:linear-gradient(180deg,#FBF4EA 0%,#EFEFFA 100%)}
+  .opt3{background:linear-gradient(180deg,#EFF4FC 0%,#F4F1FB 100%)}
+</style>
+</head>
+<body>
+  <h1>背景底色预览 ✦ 选一个</h1>
+  <div class="sub">三种淡色方案，都和新的玫瑰粉 / 香芋紫 / 雾霾蓝 / 黄绿配色搭，白色窗口会继续保留。</div>
+  <div class="cols">
+    <div>
+      <div class="panel opt1">
+        <span class="tag">方案 1</span>
+        <div class="dots"></div>
+        <div class="win w1"><div class="bar"><span class="ic">✦</span>关于我</div><div class="bd"><div class="row">中文系应届毕业生</div><div class="row">设计 × 文案</div></div></div>
+        <div class="win w2"><div class="bar"><span class="ic">♪</span>歌单</div><div class="bd"><div class="row">正在放歌中…</div></div></div>
+        <svg class="star" style="left:52%;top:60%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <svg class="star" style="right:14%;top:70%;animation-delay:.4s" viewBox="0 0 64 64"><path fill="#E78EF8" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+      </div>
+      <div class="desc"><b>方案 1 · 淡粉 → 淡紫</b><br>粉调偏多，温柔甜美，和新主色玫瑰粉最搭。</div>
+    </div>
+    <div>
+      <div class="panel opt2">
+        <span class="tag">方案 2</span>
+        <div class="dots"></div>
+        <div class="win w1"><div class="bar"><span class="ic">✦</span>关于我</div><div class="bd"><div class="row">中文系应届毕业生</div><div class="row">设计 × 文案</div></div></div>
+        <div class="win w2"><div class="bar"><span class="ic">♪</span>歌单</div><div class="bd"><div class="row">正在放歌中…</div></div></div>
+        <svg class="star" style="left:52%;top:60%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <svg class="star" style="right:14%;top:70%" viewBox="0 0 64 64"><path fill="#EDE986" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+      </div>
+      <div class="desc"><b>方案 2 · 奶油 → 淡紫</b><br>奶油感偏多，柔和复古，带一点杂志纸感。</div>
+    </div>
+    <div>
+      <div class="panel opt3">
+        <span class="tag">方案 3</span>
+        <div class="dots"></div>
+        <div class="win w1"><div class="bar"><span class="ic">✦</span>关于我</div><div class="bd"><div class="row">中文系应届毕业生</div><div class="row">设计 × 文案</div></div></div>
+        <div class="win w2"><div class="bar"><span class="ic">♪</span>歌单</div><div class="bd"><div class="row">正在放歌中…</div></div></div>
+        <svg class="star" style="left:52%;top:60%" viewBox="0 0 64 64"><path fill="#93ABD9" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <svg class="star" style="right:14%;top:70%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+      </div>
+      <div class="desc"><b>方案 3 · 雾蓝 → 淡紫</b><br>偏冷一点点，清爽安静，和雾霾蓝呼应。</div>
+    </div>
+  </div>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

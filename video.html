@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视频类 ✦ XINTONG OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menubar">
+  <div class="left">
+    <a class="brand" href="index.html?skipboot=1">XINTONG<b> OS</b> ✦ 盘欣桐</a>
+    <a class="menu-item" href="index.html?skipboot=1">首页</a>
+    <a class="menu-item" href="projects.html">作品</a>
+    <a class="menu-item" href="experience.html">经历</a>
+    <a class="menu-item" href="contact.html">联系</a>
+  </div>
+  <div class="clock">8月4日 星期三 9:41 AM</div>
+</div>
+
+<div class="desktop">
+  <div class="dots"></div>
+  <svg class="star" style="width:16px;left:7%;top:12%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+
+  <div class="back-bar">
+    <a href="projects.html?open=1">✕ 返回目录</a>
+    <a href="copy.html">下一个：文案类 →</a>
+  </div>
+
+  <div class="win page-win">
+    <div class="titlebar"><span class="win-icon" style="background:#93ABD9"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.2"><rect x="1.5" y="2.5" width="9" height="7" rx="1.5"/><path d="M4.8 4.8 8 6.5l-3.2 1.7z"/></svg></span><span class="ttl">Video <b>✦</b> 视频类</span><span class="now">player</span><a class="close" href="projects.html">✕</a></div>
+    <div class="body">
+      <div class="cat-intro">点一下视频图标即可播放，播放器保留视频原始比例。</div>
+      <div class="video-grid" id="videoGrid"></div>
+      <div class="vid-player" id="vidPlayer"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const VIDEOS = [
+    { name: '曼谷 vlog', tag: 'Douyin · 已下载', src: 'assets/video/bangkok.mp4', external: false },
+    { name: '和朋友们的聚会团建 vlog', tag: 'Douyin · 站外', src: 'https://v.douyin.com/sOuOlL9O77o/', external: true },
+    { name: '和朋友们的聚会 2', tag: 'Douyin · 已下载', src: 'assets/video/party2.mp4', external: false },
+    { name: '抖音剪辑', tag: '本地素材', src: '../视频/seetigh抖音剪辑.mp4', external: false },
+    { name: '时光的河入海流', tag: '本地素材', src: '../视频/时光的河入海流.mp4', external: false },
+    { name: '视频 03', tag: '本地素材', src: '../视频/c08a9ec293f3f130a4a111f508b43ea6.mp4', external: false },
+    { name: '鼠的月记 1', tag: '微信视频号 · 站外', src: 'https://weixin.qq.com/sph/ASQYPqnbo3', external: true },
+    { name: '日常 vlog 碎片', tag: '微信视频号 · 站外', src: 'https://weixin.qq.com/sph/AdPYekuvyj', external: true }
+  ];
+
+  const grid = document.getElementById('videoGrid');
+  const player = document.getElementById('vidPlayer');
+
+  VIDEOS.forEach((v, i) => {
+    const card = document.createElement('div');
+    card.className = 'vid-card' + (v.external ? ' external' : '');
+    card.innerHTML = '<div class="cam">' + (v.external ? '🔗' : '🎥') + '</div>' +
+      '<h3>' + v.name + '</h3><div class="vtag">' + v.tag + '</div>';
+    card.addEventListener('click', () => {
+      if (v.external) {
+        window.open(v.src, '_blank');
+        return;
+      }
+      player.innerHTML = '<video controls autoplay preload="metadata" src="' + v.src + '"></video>';
+      player.classList.add('show');
+      player.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    grid.appendChild(card);
+  });
+</script>
+
+<script src="assets/edit.js"></script>
+<script src="assets/clock.js"></script>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

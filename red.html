@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书营销图文 ✦ XINTONG OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menubar">
+  <div class="left">
+    <a class="brand" href="index.html?skipboot=1">XINTONG<b> OS</b> ✦ 盘欣桐</a>
+    <a class="menu-item" href="index.html?skipboot=1">首页</a>
+    <a class="menu-item" href="projects.html">作品</a>
+    <a class="menu-item" href="experience.html">经历</a>
+    <a class="menu-item" href="contact.html">联系</a>
+  </div>
+  <div class="clock">8月4日 星期三 9:41 AM</div>
+</div>
+
+<div class="desktop">
+  <div class="dots"></div>
+  <svg class="star" style="width:16px;left:7%;top:12%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+
+  <div class="back-bar">
+    <a href="projects.html?open=1">✕ 返回目录</a>
+    <a href="video.html">下一个：视频类 →</a>
+  </div>
+
+  <div class="win page-win">
+    <div class="titlebar"><span class="win-icon" style="background:#E78EF8"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.2"><rect x="2.5" y="1.5" width="7" height="9" rx="1.5"/><circle cx="6" cy="4.5" r="1.4"/><path d="M4.4 8.5c.4-1 3.2-1 3.6 0"/></svg></span><span class="ttl">Red Social <b>✦</b> 小红书营销图文</span><span class="now">themes</span><a class="close" href="projects.html">✕</a></div>
+    <div class="body">
+      <div class="cat-intro">按不同主题整理。点击主题进入，再拖拽 / 滚轮浏览每一张图。</div>
+
+      <div id="themeList" class="theme-grid"></div>
+
+      <div id="themeView" style="display:none">
+        <a class="back-theme" id="backTheme" href="#">‹ 返回主题列表</a>
+        <h3 id="themeTitle" style="font-size:18px;font-weight:700;margin-bottom:14px"></h3>
+        <div class="gallery-wrap">
+          <div class="circular-gallery" id="gallery" tabindex="0" role="region" aria-label="主题图文画廊，可拖拽或使用方向键浏览"></div>
+        </div>
+        <div class="gallery-hint">拖拽 / 滚轮 / 方向键浏览 ✦ 松手自动吸附</div>
+        <div class="red-wall" id="themeGrid"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="assets/lib/ogl.min.js"></script>
+<script src="assets/gallery-data-red.js"></script>
+<script src="assets/gallery.js"></script>
+<script>
+  const THEMES = GALLERY_RED;
+  const ORIG = {
+    kaidu: n => '../营销图文/凯度B8全测评图片（全产品介绍版）/稿定设计-' + n + '.jpg',
+    catfood: n => '../营销图文/宠物猫粮测评表格小红书配图/稿定设计-' + n + '.jpg',
+    watch: n => '../营销图文/抗糖手表/' + n + '.png',
+    banwei: n => '../营销图文/班味营销/稿定设计-' + n + '.jpg',
+    tea: n => { const f = ['微信图片_20251211011352_190_55.jpg', '微信图片_20251211011353_191_55.jpg']; return '../营销图文/茶饮健康赛道营销/' + f[n - 1]; }
+  };
+
+  const listEl = document.getElementById('themeList');
+  Object.keys(THEMES).filter(key => key !== 'catfood').forEach(key => {
+    const t = THEMES[key];
+    const card = document.createElement('div');
+    card.className = 'theme-card';
+    card.innerHTML = '<div class="tcover"><img src="assets/red/' + key + '/01.jpg" alt="' + t.name + '"></div>' +
+      '<div class="tname">' + t.name + '<small>' + t.items.length + ' 张图文</small></div>';
+    card.addEventListener('click', () => showTheme(key));
+    listEl.appendChild(card);
+  });
+
+  let galleryApp = null;
+  function showTheme(key) {
+    const t = THEMES[key];
+    document.getElementById('themeTitle').textContent = t.name;
+    document.getElementById('themeList').style.display = 'none';
+    document.getElementById('themeView').style.display = 'block';
+    if (galleryApp) { galleryApp.destroy(); galleryApp = null; }
+    const grid = document.getElementById('themeGrid');
+    grid.innerHTML = '';
+    t.items.forEach((it, i) => {
+      const a = document.createElement('a');
+      a.className = 'red-frame';
+      a.href = ORIG[key](i + 1);
+      a.target = '_blank';
+      a.innerHTML = '<div class="art"><img src="assets/red/' + key + '/' + String(i + 1).padStart(2, '0') + '.jpg" alt="' + t.name + ' ' + (i + 1) + '"></div>' +
+        '<div class="cap">' + it.text + '</div>';
+      grid.appendChild(a);
+    });
+    galleryApp = initCircularGallery(document.getElementById('gallery'), t.items);
+  }
+
+  document.getElementById('backTheme').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('themeView').style.display = 'none';
+    document.getElementById('themeList').style.display = '';
+    if (galleryApp) { galleryApp.destroy(); galleryApp = null; }
+  });
+</script>
+
+<script src="assets/edit.js"></script>
+<script src="assets/clock.js"></script>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

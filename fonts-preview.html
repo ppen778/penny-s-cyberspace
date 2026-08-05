@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字体预览 ✦ 图标标签</title>
+<style>
+  @font-face{font-family:'ZQKH';src:url('assets/fonts/zcool-regular.ttf') format('truetype');}
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  @font-face{font-family:'MaShan';src:url('assets/fonts/mashan-regular.ttf') format('truetype');}
+  @font-face{font-family:'ZXW';src:url('assets/fonts/zcool-xiaowei.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#F7F3EA;color:#1C1B18;
+    font-family:"Microsoft YaHei",sans-serif;
+    padding:40px 32px;
+    background-image:radial-gradient(rgba(28,27,24,.07) 1.2px, transparent 1.2px);
+    background-size:22px 22px;
+  }
+  h1{font-size:26px;font-weight:800;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:28px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{
+    background:#fff;border:2px solid #1C1B18;
+    border-radius:14px;box-shadow:6px 6px 0 rgba(28,27,24,.85);
+    padding:22px 24px 26px;
+  }
+  .card .name{font-size:12px;font-weight:800;letter-spacing:.08em;margin-bottom:4px}
+  .card .vibe{font-size:11px;color:#8A7A5C;margin-bottom:18px}
+  .mock{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    width:92px;
+  }
+  .mock img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(20,90,160,.25))}
+  .mock .lbl{
+    font-size:14px;text-align:center;line-height:1.3;
+    background:#fff;border:1px solid rgba(28,27,24,.25);
+    border-radius:6px;padding:3px 10px;
+  }
+  .samples{margin-top:16px;border-top:1px dashed rgba(28,27,24,.25);padding-top:14px}
+  .samples .s{font-size:15px;line-height:1.9;text-align:center}
+  .a .mock .lbl,.a .s{font-family:'ZQKH',sans-serif}
+  .b .mock .lbl,.b .s{font-family:'ZKuaile',sans-serif}
+  .c .mock .lbl,.c .s{font-family:'MaShan',sans-serif}
+  .d .mock .lbl,.d .s{font-family:'ZXW',sans-serif}
+  .tag{
+    display:inline-block;margin-top:6px;
+    font-size:10px;letter-spacing:.2em;color:#A79A80;text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+  <h1>图标标签字体预览 ✦ 选一个</h1>
+  <div class="sub">下面是 4 种候选字体，每种都配了图标和真实标签文字，你选 A / B / C / D 就行。</div>
+
+  <div class="grid">
+    <div class="card a">
+      <div class="name">A · 站酷清刻黄油体</div>
+      <div class="vibe">怪趣 · 块状 · 复古海报感，最"Y2K"</div>
+      <div class="mock">
+        <img src="assets/deco/girl1.png" alt="icon">
+        <span class="lbl">关于我</span>
+      </div>
+      <div class="samples">
+        <div class="s">关于我 作品集 经历</div>
+        <div class="s">生活 请雇我工作</div>
+        <div class="s">我运营过的社媒</div>
+      </div>
+    </div>
+
+    <div class="card b">
+      <div class="name">B · 站酷快乐体</div>
+      <div class="vibe">圆润可爱 · 最活泼 · 贴纸感</div>
+      <div class="mock">
+        <img src="assets/deco/girl2.png" alt="icon">
+        <span class="lbl">作品集</span>
+      </div>
+      <div class="samples">
+        <div class="s">关于我 作品集 经历</div>
+        <div class="s">生活 请雇我工作</div>
+        <div class="s">我运营过的社媒</div>
+      </div>
+    </div>
+
+    <div class="card c">
+      <div class="name">C · 马善政毛笔体</div>
+      <div class="vibe">手写笔触 · 随意 · 像随手写的便签</div>
+      <div class="mock">
+        <img src="assets/deco/girl3.png" alt="icon">
+        <span class="lbl">经历</span>
+      </div>
+      <div class="samples">
+        <div class="s">关于我 作品集 经历</div>
+        <div class="s">生活 请雇我工作</div>
+        <div class="s">我运营过的社媒</div>
+      </div>
+    </div>
+
+    <div class="card d">
+      <div class="name">D · 站酷小薇体</div>
+      <div class="vibe">文艺纤细 · 杂志感 · 安静</div>
+      <div class="mock">
+        <img src="assets/deco/girl4.png" alt="icon">
+        <span class="lbl">生活</span>
+      </div>
+      <div class="samples">
+        <div class="s">关于我 作品集 经历</div>
+        <div class="s">生活 请雇我工作</div>
+        <div class="s">我运营过的社媒</div>
+      </div>
+    </div>
+  </div>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

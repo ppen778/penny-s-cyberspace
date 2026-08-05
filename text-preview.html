@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字风格方案 ✦ 选一个</title>
+<style>
+  @font-face{font-family:'MaShan';src:url('assets/fonts/mashan-regular.ttf') format('truetype');}
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  @font-face{font-family:'ZQKH';src:url('assets/fonts/zcool-regular.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:linear-gradient(180deg,#FDEFF4 0%,#F3F0FB 60%,#F1F0FB 100%);font-family:"Microsoft YaHei",sans-serif;padding:36px 30px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px;color:#1C1B18}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:26px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .panel{border-radius:16px;padding:22px;background:rgba(255,255,255,.9);box-shadow:6px 6px 0 rgba(28,27,24,.8);border:2px solid #1C1B18}
+  .panel h2{font-size:15px;font-weight:800;margin-bottom:4px}
+  .panel .tag{font-size:11px;color:#8A7A5C;margin-bottom:16px}
+  .sec{margin-bottom:16px;border-top:1px dashed rgba(28,27,24,.25);padding-top:12px}
+  .sec .lbl{font-size:10px;letter-spacing:.18em;color:#A79A80;text-transform:uppercase;margin-bottom:8px}
+  .nav{display:flex;gap:10px;flex-wrap:wrap}
+  .nav span{font-size:14px;border:1.5px solid #1C1B18;border-radius:9px;padding:6px 14px;background:#fff}
+  .btn{display:inline-block;font-size:15px;font-weight:700;border:2px solid #1C1B18;border-radius:10px;background:#F2619C;color:#fff;padding:9px 18px;box-shadow:4px 4px 0 #1C1B18;transform:rotate(-1deg)}
+  .win{background:#fff;border:1.5px solid rgba(17,17,17,.15);border-radius:12px;box-shadow:0 10px 24px rgba(30,60,110,.15);overflow:hidden;max-width:300px}
+  .win .bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid rgba(17,17,17,.08)}
+  .win .bar .ic{width:16px;height:16px;border-radius:5px;background:#F2619C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px}
+  .win .bar .t{font-size:12px;font-weight:700;color:#333}
+  .win .bd{padding:12px 14px;font-size:13px;color:#444;line-height:1.9}
+  .status{display:inline-block;font-size:13px;border:1.5px solid #1C1B18;border-radius:8px;background:#EDE986;padding:7px 12px}
+  .footer{font-size:14px;color:#6B6353}
+  .quote{border-left:3px solid #F2619C;padding-left:12px;font-size:15px;line-height:2}
+  .curA .nav span,.curA .win .bar .t,.curA .sec .quote,.curA .footer{font-family:'MaShan',sans-serif}
+  .curA .btn{font-family:'MaShan',sans-serif;font-size:16px}
+  .curA .win .bd{font-family:'MaShan',sans-serif;font-size:14px}
+  .curA .status{font-family:'MaShan',sans-serif;font-size:14px}
+  .curB .nav span,.curB .btn,.curB .win .bar .t{font-family:'ZKuaile',sans-serif}
+  .curB .win .bd{font-family:'MaShan',sans-serif;font-size:14px}
+  .curB .sec .quote,.curB .footer,.curB .status{font-family:'MaShan',sans-serif}
+  .curB .quote .hl{font-family:'ZKuaile',sans-serif}
+</style>
+</head>
+<body>
+  <h1>文字风格方案 ✦ 选一个</h1>
+  <div class="sub">两套"更可爱、Y2K 手写体"的文字方案，配上重写后的示例文案。图标下方的标签保持现在的快乐体不动。</div>
+
+  <div class="cols">
+    <div class="panel curA">
+      <h2>方案 A · 全手写体（毛笔便签感）</h2>
+      <div class="tag">正文 / 标题 / 按钮全部换成马善政毛笔体，最随性、最有手写温度</div>
+
+      <div class="sec">
+        <div class="lbl">顶部导航</div>
+        <div class="nav"><span>首页</span><span>作品</span><span>经历</span><span>联系</span></div>
+      </div>
+      <div class="sec">
+        <div class="lbl">窗口标题</div>
+        <div class="win">
+          <div class="bar"><span class="ic">✦</span><span class="t">关于我</span></div>
+          <div class="bd">嗨嗨，我是盘欣桐～<br>一半时间排版做图，一半时间写字表达，耳机里永远有歌！</div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="lbl">按钮</div>
+        <button class="btn">打开目录 ✦ 进来玩</button>
+      </div>
+      <div class="sec">
+        <div class="lbl">状态 / 标语</div>
+        <span class="status">应届毕业生，正在找工作啦！设计 · 文案 · 新媒体</span>
+      </div>
+      <div class="sec">
+        <div class="lbl">文案节选</div>
+        <div class="quote">耳机里的快乐，是最低成本的快乐——音乐是我每天的维生素！</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">页脚</div>
+        <div class="footer">谢谢你来看我的小宇宙呀 ✦ 下次再来玩～</div>
+      </div>
+    </div>
+
+    <div class="panel curB">
+      <h2>方案 B · 快乐体 + 手写混搭（贴纸感）</h2>
+      <div class="tag">标题 / 按钮 / 导航用站酷快乐体（圆润贴纸感），正文用手写体，读起来更可爱也更清晰</div>
+
+      <div class="sec">
+        <div class="lbl">顶部导航</div>
+        <div class="nav"><span>首页</span><span>作品</span><span>经历</span><span>联系</span></div>
+      </div>
+      <div class="sec">
+        <div class="lbl">窗口标题</div>
+        <div class="win">
+          <div class="bar"><span class="ic">✦</span><span class="t">关于我</span></div>
+          <div class="bd">嗨嗨，我是盘欣桐～<br>一半时间排版做图，一半时间写字表达，耳机里永远有歌！</div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="lbl">按钮</div>
+        <button class="btn">打开目录 ✦ 进来玩</button>
+      </div>
+      <div class="sec">
+        <div class="lbl">状态 / 标语</div>
+        <span class="status">应届毕业生，正在找工作啦！设计 · 文案 · 新媒体</span>
+      </div>
+      <div class="sec">
+        <div class="lbl">文案节选</div>
+        <div class="quote"><span class="hl">耳机里的快乐</span>，是最低成本的快乐——音乐是我每天的维生素！</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">页脚</div>
+        <div class="footer">谢谢你来看我的小宇宙呀 ✦ 下次再来玩～</div>
+      </div>
+    </div>
+  </div>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

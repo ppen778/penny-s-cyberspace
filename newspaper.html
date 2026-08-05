@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报纸排版 ✦ XINTONG OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menubar">
+  <div class="left">
+    <a class="brand" href="index.html?skipboot=1">XINTONG<b> OS</b> ✦ 盘欣桐</a>
+    <a class="menu-item" href="index.html?skipboot=1">首页</a>
+    <a class="menu-item" href="projects.html">作品</a>
+    <a class="menu-item" href="experience.html">经历</a>
+    <a class="menu-item" href="contact.html">联系</a>
+  </div>
+  <div class="clock">8月4日 星期三 9:41 AM</div>
+</div>
+
+<div class="desktop">
+  <div class="dots"></div>
+  <svg class="star" style="width:16px;left:7%;top:12%" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+
+  <div class="back-bar">
+    <a href="projects.html?open=1">✕ 返回目录</a>
+    <a href="poster.html">下一个：海报 · 易拉宝 →</a>
+  </div>
+
+  <div class="win page-win">
+    <div class="titlebar"><span class="win-icon" style="background:#E78EF8"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.2"><path d="M1.5 2.5h9v8h-9z"/><path d="M4.5 5.5h3M4.5 8h3"/></svg></span><span class="ttl">Newspaper <b>✦</b> 报纸排版</span><span class="now">spread</span><a class="close" href="projects.html">✕</a></div>
+    <div class="body">
+      <div class="cat-intro">报纸版面是横向大版面，用宽幅比例完整展示。</div>
+      <div class="gallery-wrap">
+        <div class="circular-gallery" id="gallery" tabindex="0" role="region" aria-label="报纸版面画廊，可拖拽或使用方向键浏览"></div>
+      </div>
+      <div class="gallery-hint">拖拽 / 滚轮 / 方向键浏览 ✦ 松手自动吸附</div>
+      <div class="newspaper-grid">
+        <div class="newspaper-card">
+          <div class="page"><img src="assets/news1.png" alt="报纸版面"></div>
+          <h3>报纸版面 01<span class="ptag">Paper</span></h3>
+          <p class="pnote">娱乐周刊实习期间的版面排版。</p>
+        </div>
+        <div class="newspaper-card">
+          <div class="page"><img src="assets/news2.png" alt="报纸版面"></div>
+          <h3>报纸版面 02<span class="ptag">Paper</span></h3>
+          <p class="pnote"><a href="../报纸/屏幕截图 2025-12-11 211442.png" target="_blank">查看原图 →</a></p>
+        </div>
+        <div class="newspaper-card">
+          <div class="page"><img src="assets/news3.png" alt="报纸版面"></div>
+          <h3>报纸版面 03<span class="ptag">Paper</span></h3>
+          <p class="pnote"><a href="../报纸/屏幕截图 2025-12-11 211522.png" target="_blank">查看原图 →</a></p>
+        </div>
+        <div class="newspaper-card">
+          <div class="page"><img src="assets/news4.png" alt="报纸版面"></div>
+          <h3>报纸版面 04<span class="ptag">Paper</span></h3>
+          <p class="pnote"><a href="../报纸/屏幕截图 2025-12-11 211628.png" target="_blank">查看原图 →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/lib/ogl.min.js"></script>
+<script src="assets/gallery-data-newspaper.js"></script>
+<script src="assets/gallery.js"></script>
+<script>
+  initCircularGallery(document.getElementById('gallery'), GALLERY_DATA.newspaper);
+</script>
+
+<script src="assets/edit.js"></script>
+<script src="assets/clock.js"></script>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于我 · Y2K 工牌预览</title>
+<style>
+  @font-face{font-family:'ZQKH';src:url('assets/fonts/zcool-regular.ttf') format('truetype');}
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  @font-face{font-family:'MaShan';src:url('assets/fonts/mashan-regular.ttf') format('truetype');}
+  @font-face{font-family:'Chakra';src:url('assets/fonts/chakra-bolditalic.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:linear-gradient(180deg,#FDEFF4 0%,#F3F0FB 60%,#F1F0FB 100%);
+    font-family:"Microsoft YaHei",sans-serif;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;gap:50px;flex-wrap:wrap;
+    padding:40px;position:relative;
+    background-image:radial-gradient(rgba(147,171,217,.25) 1.2px, transparent 1.2px);
+    background-size:20px 20px;
+  }
+  .note{position:absolute;top:22px;left:50%;transform:translateX(-50%);font-size:15px;color:#6B6353;font-family:'MaShan',sans-serif}
+  .badge{
+    position:relative;width:320px;background:#FFFDF7;
+    border:2.5px solid #1C1B18;border-radius:18px;
+    box-shadow:8px 8px 0 rgba(28,27,24,.85);
+    overflow:hidden;transform:rotate(-1deg);
+  }
+  .holo{
+    height:26px;display:flex;align-items:center;justify-content:center;gap:8px;
+    background:linear-gradient(90deg,#F2619C,#E78EF8,#93ABD9,#EDE986,#F2619C);
+    background-size:200% 100%;
+    color:#fff;font-family:'Chakra',sans-serif;font-size:12px;letter-spacing:.25em;
+    border-bottom:2px solid #1C1B18;
+  }
+  .inner{padding:18px 18px 20px;position:relative}
+  .dots{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(242,97,156,.14) 1px, transparent 1px);
+    background-size:14px 14px;
+  }
+  .photo{
+    position:relative;width:150px;margin:0 auto;background:#fff;
+    border:2px solid #1C1B18;padding:6px 6px 30px;
+    transform:rotate(-3deg);
+    box-shadow:5px 5px 0 rgba(28,27,24,.55);
+  }
+  .photo img{width:100%;height:150px;object-fit:cover;display:block}
+  .photo .cap{
+    position:absolute;bottom:7px;left:0;right:0;text-align:center;
+    font-family:'MaShan',sans-serif;font-size:14px;color:#444;
+  }
+  .photo .tape{
+    position:absolute;top:-10px;left:50%;margin-left:-34px;width:68px;height:18px;
+    background:rgba(237,233,134,.75);border:1px dashed rgba(28,27,24,.45);
+    transform:rotate(-6deg);
+  }
+  .name{
+    margin-top:18px;text-align:center;
+    font-family:'ZKuaile',sans-serif;font-size:30px;line-height:1.1;
+  }
+  .en{
+    text-align:center;font-family:'Chakra',sans-serif;font-size:13px;
+    color:#F2619C;letter-spacing:.2em;margin-top:4px;
+  }
+  .meta{
+    margin:14px auto 0;width:max-content;text-align:center;
+    font-size:12.5px;line-height:1.9;color:#333;
+    border:1.5px dashed #1C1B18;border-radius:10px;padding:8px 16px;
+    background:#fff;
+  }
+  .meta b{font-family:'ZKuaile',sans-serif;font-size:14px;color:#F2619C}
+  .chips{display:flex;justify-content:center;gap:8px;margin-top:14px}
+  .chip{
+    font-family:'ZKuaile',sans-serif;font-size:12px;
+    border:1.5px solid #1C1B18;border-radius:999px;padding:4px 12px;
+  }
+  .chip.pink{background:#F2619C;color:#fff}
+  .chip.lilac{background:#E78EF8;color:#fff}
+  .chip.lime{background:#EDE986}
+  .barcode{
+    display:flex;gap:2px;justify-content:center;margin-top:14px;height:26px;align-items:stretch;
+  }
+  .barcode i{width:3px;background:#1C1B18}
+  .barcode i:nth-child(3n){width:1px}
+  .barcode i:nth-child(4n){width:5px}
+  .foot{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:10px;padding:0 2px;
+    font-family:'Chakra',sans-serif;font-size:10px;letter-spacing:.18em;color:#8A7A5C;
+  }
+  .st{position:absolute}
+  .st-star{top:64px;left:6px;width:30px;animation:float 3.2s ease-in-out infinite}
+  .st-heart{top:210px;right:8px;width:26px;animation:float 3.8s .4s ease-in-out infinite}
+  .st-smile{bottom:86px;left:6px;width:24px;animation:float 4s .8s ease-in-out infinite}
+  .st-spark{top:140px;right:14px;width:18px;animation:spin 7s linear infinite}
+  .stamp{
+    position:absolute;bottom:40px;right:-4px;
+    background:#fff;border:2px solid #1C1B18;border-radius:8px;
+    font-family:'ZKuaile',sans-serif;font-size:11px;color:#F2619C;
+    padding:4px 8px;transform:rotate(6deg);
+  }
+  @keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-8px) rotate(var(--r,0deg))}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+  <div class="note">「关于我」Y2K 工牌 · 预览</div>
+
+  <div class="badge">
+    <div class="holo">XINTONG ✦ OS ✦ 2026</div>
+    <div class="inner">
+      <div class="dots"></div>
+      <div class="photo">
+        <span class="tape"></span>
+        <img src="assets/hero1.jpg" alt="盘欣桐">
+        <div class="cap">今天也元气满满 ✦</div>
+      </div>
+      <div class="name">盘欣桐</div>
+      <div class="en">PENNY ✦ PAN</div>
+      <div class="meta">
+        <b>中文系应届毕业生</b><br>
+        一半时间排版做图，一半时间写字表达<br>
+        耳机里永远有歌 ✦ 正在找工作啦！
+      </div>
+      <div class="chips">
+        <span class="chip pink">DESIGN</span>
+        <span class="chip lilac">COPY</span>
+        <span class="chip lime">NEW MEDIA</span>
+      </div>
+      <div class="barcode"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="foot"><span>ID : 0220211107</span><span>EST. 2004</span></div>
+    </div>
+    <svg class="st st-star" style="--r:-8deg" viewBox="0 0 64 64"><path fill="#EDE986" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+    <svg class="st st-heart" style="--r:8deg" viewBox="0 0 64 64"><path fill="#F2619C" d="M32 56 C12 42 6 28 14 18 C21 9 32 15 32 15 C32 15 43 9 50 18 C58 28 52 42 32 56 Z"/></svg>
+    <svg class="st st-smile" style="--r:4deg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#E78EF8" stroke="#1C1B18" stroke-width="2.5"/><circle cx="22" cy="27" r="3.5" fill="#1C1B18"/><circle cx="42" cy="27" r="3.5" fill="#1C1B18"/><path d="M20 39 Q32 50 44 39" stroke="#1C1B18" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+    <svg class="st st-spark" viewBox="0 0 64 64"><path fill="#93ABD9" d="M32 0 L40 24 L64 32 L40 40 L32 64 L24 40 L0 32 L24 24 Z"/></svg>
+    <div class="stamp">100% REAL GIRL ✦</div>
+  </div>
+</body>
+</html>

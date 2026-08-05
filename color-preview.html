@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>换色方案预览 ✦ 当前 vs 新配色</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#EFECE3;font-family:"Microsoft YaHei",sans-serif;padding:34px 30px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px}
+  .sub{font-size:13px;color:#6B6353;margin-bottom:8px}
+  .role{font-size:12px;color:#8A7A5C;margin-bottom:24px;line-height:1.9}
+  .role b{color:#1C1B18}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .panel{border-radius:16px;padding:22px;background:#fff;box-shadow:6px 6px 0 rgba(28,27,24,.8);border:2px solid #1C1B18}
+  .panel h2{font-size:15px;font-weight:800;margin-bottom:14px}
+  .sw{display:flex;gap:10px;margin-bottom:18px}
+  .sw i{width:46px;height:46px;border:1.5px solid #1C1B18;border-radius:10px}
+  .sw span{font-size:10px;color:#8A7A5C;align-self:center}
+
+  .winmock{background:#fff;border:1.5px solid rgba(17,17,17,.15);border-radius:14px;box-shadow:0 12px 28px rgba(30,60,110,.15);margin-bottom:18px;overflow:hidden}
+  .winmock .bar{height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid rgba(17,17,17,.08);font-size:12px;font-weight:700;color:#333}
+  .winmock .bar .ic{width:17px;height:17px;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px}
+  .winmock .bar .now{margin-left:auto;font-size:10px;color:#A9B4C0;font-weight:400}
+  .winmock .bar .x{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;background:#E9EEF4;color:#5A6B7C}
+  .winmock .bd{padding:14px 16px}
+  .winmock .row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #E5E8EE;padding:7px 0;font-size:12.5px}
+  .winmock .tag{font-size:9.5px;font-weight:700;letter-spacing:.1em;border-radius:5px;padding:3px 7px;color:#fff}
+  .winmock .link{font-size:12px;font-weight:700;text-decoration:none;border-bottom:1.5px solid}
+
+  .elrow{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .star{width:26px;height:26px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .folder{width:64px;height:auto}
+  .btn{
+    font-size:12px;font-weight:700;border:1.5px solid #1C1B18;border-radius:9px;
+    padding:8px 14px;background:#fff;cursor:pointer;
+  }
+  .status{font-size:12px;border:1.5px solid #1C1B18;border-radius:8px;padding:7px 10px}
+
+  .cur{--p:#2E6BD6;--m:#90B0F0;--l:#C0E0F0;--y:#FFF785;--s1:#FF2D2D;--s2:#FF2D2D;--fb:#27A3F5;--ff:#8FD0FF;--fs:#0F6CB8;--ic:#2E86F6}
+  .new{--p:#F2619C;--m:#E78EF8;--l:#93ABD9;--y:#EDE986;--s1:#F2619C;--s2:#E78EF8;--fb:#93ABD9;--ff:#E78EF8;--fs:#6E86B8;--ic:#F2619C}
+
+  .cur .winmock .bar .ic{background:var(--ic)}
+  .new .winmock .bar .ic{background:var(--ic)}
+  .cur .winmock .tag{background:var(--p)}
+  .new .winmock .tag{background:var(--p)}
+  .cur .winmock .link{color:var(--p);border-color:var(--p)}
+  .new .winmock .link{color:var(--p);border-color:var(--p)}
+  .cur .elrow .dot{background:var(--l)}
+  .new .elrow .dot{background:var(--l)}
+  .cur .status{background:var(--y)}
+  .new .status{background:var(--y)}
+  .cur .btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+  .new .btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+</style>
+</head>
+<body>
+  <h1>换色方案预览 ✦ 当前配色 vs 新配色</h1>
+  <div class="role">
+    新配色角色：<b>#F2619C</b> 玫瑰粉 = 主强调（链接 / 悬停 / 标签） ·
+    <b>#E78EF8</b> 香芋紫 = 次强调（文件夹 / 星星） ·
+    <b>#93ABD9</b> 雾霾蓝 = 清爽浅蓝（波点 / 柔和底） ·
+    <b>#EDE986</b> 黄绿 = 高亮状态（待办 / 播放中）
+  </div>
+
+  <div class="cols">
+    <div class="panel cur">
+      <h2>当前配色</h2>
+      <div class="sw">
+        <i style="background:#2E6BD6"></i><i style="background:#90B0F0"></i>
+        <i style="background:#C0E0F0"></i><i style="background:#FFF785"></i>
+        <i style="background:#FF2D2D"></i><span>蓝 / 浅蓝 / 奶黄 / 红星星</span>
+      </div>
+      <div class="winmock">
+        <div class="bar"><span class="ic">✦</span>关于我 <span class="now">now</span><span class="x">✕</span></div>
+        <div class="bd">
+          <div class="row">中文系应届毕业生 <span class="tag">DESIGN</span></div>
+          <div class="row">把复杂的话说得有趣 <span class="tag">COPY</span></div>
+          <a class="link" href="#">完整介绍 →</a>
+        </div>
+      </div>
+      <div class="elrow">
+        <svg class="star" viewBox="0 0 64 64"><path fill="var(--s1)" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <svg class="star" viewBox="0 0 64 64"><path fill="var(--s2)" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <span class="dot"></span><span class="dot"></span>
+        <svg class="folder" viewBox="0 0 30 24" fill="none"><path d="M4 7.2 C4 6 4.9 5 6.1 5 L11.4 5 L13.2 7 L24.6 7 C25.8 7 26.8 8 26.8 9.2 L26.8 18.8 C26.8 20 25.8 21 24.6 21 L5.4 21 C4.2 21 3.2 20 3.2 18.8 Z" fill="var(--fb)" stroke="var(--fs)" stroke-width="1.1"/><path d="M2.8 10.4 L27.2 10.4 L26.4 20.2 C26.3 21.3 25.4 22.2 24.3 22.2 L5.7 22.2 C4.6 22.2 3.7 21.3 3.6 20.2 Z" fill="var(--ff)" stroke="var(--fs)" stroke-width="1.1"/></svg>
+      </div>
+      <div class="elrow">
+        <button class="btn">悬停变蓝</button>
+        <span class="status">正在找实习（奶黄高亮）</span>
+      </div>
+    </div>
+
+    <div class="panel new">
+      <h2>新配色（方案）</h2>
+      <div class="sw">
+        <i style="background:#F2619C"></i><i style="background:#E78EF8"></i>
+        <i style="background:#93ABD9"></i><i style="background:#EDE986"></i>
+        <span>玫瑰粉 / 香芋紫 / 雾霾蓝 / 黄绿</span>
+      </div>
+      <div class="winmock">
+        <div class="bar"><span class="ic">✦</span>关于我 <span class="now">now</span><span class="x">✕</span></div>
+        <div class="bd">
+          <div class="row">中文系应届毕业生 <span class="tag">DESIGN</span></div>
+          <div class="row">把复杂的话说得有趣 <span class="tag">COPY</span></div>
+          <a class="link" href="#">完整介绍 →</a>
+        </div>
+      </div>
+      <div class="elrow">
+        <svg class="star" viewBox="0 0 64 64"><path fill="var(--s1)" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <svg class="star" viewBox="0 0 64 64"><path fill="var(--s2)" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+        <span class="dot"></span><span class="dot"></span>
+        <svg class="folder" viewBox="0 0 30 24" fill="none"><path d="M4 7.2 C4 6 4.9 5 6.1 5 L11.4 5 L13.2 7 L24.6 7 C25.8 7 26.8 8 26.8 9.2 L26.8 18.8 C26.8 20 25.8 21 24.6 21 L5.4 21 C4.2 21 3.2 20 3.2 18.8 Z" fill="var(--fb)" stroke="var(--fs)" stroke-width="1.1"/><path d="M2.8 10.4 L27.2 10.4 L26.4 20.2 C26.3 21.3 25.4 22.2 24.3 22.2 L5.7 22.2 C4.6 22.2 3.7 21.3 3.6 20.2 Z" fill="var(--ff)" stroke="var(--fs)" stroke-width="1.1"/></svg>
+      </div>
+      <div class="elrow">
+        <button class="btn">悬停变玫瑰粉</button>
+        <span class="status">正在找工作（黄绿高亮）</span>
+      </div>
+    </div>
+  </div>
+<script src="assets/sparks.js"></script>
+<script src="assets/pillnav.js"></script>
+</body>
+</html>

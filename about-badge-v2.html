@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于我 · 写实工牌预览</title>
+<style>
+  @font-face{font-family:'ZKuaile';src:url('assets/fonts/zcool-kuaile.ttf') format('truetype');}
+  @font-face{font-family:'MaShan';src:url('assets/fonts/mashan-regular.ttf') format('truetype');}
+  @font-face{font-family:'Chakra';src:url('assets/fonts/chakra-bolditalic.ttf') format('truetype');}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    font-family:"Microsoft YaHei",sans-serif;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #FDEFF4 0%, #EFE6F6 45%, #D9CDEA 100%);
+  }
+  .vignette{
+    position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(90% 90% at 50% 45%, transparent 55%, rgba(60,40,90,.28) 100%);
+  }
+  .grain{
+    position:fixed;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .scene{position:relative;padding:140px 40px 60px}
+  .strap{
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:26px;height:170px;
+    background:repeating-linear-gradient(45deg,#F2619C 0 8px,#E78EF8 8px 16px);
+    border-radius:13px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,.18), 0 6px 14px rgba(60,40,90,.25);
+  }
+  .strap::after{
+    content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
+    width:34px;height:14px;border-radius:7px;
+    background:linear-gradient(180deg,#F5F0FA,#CFC4DE);
+    box-shadow:0 4px 8px rgba(60,40,90,.25);
+  }
+  .clip{
+    position:absolute;top:162px;left:50%;transform:translateX(-50%);
+    width:40px;height:26px;border-radius:8px;
+    background:linear-gradient(180deg,#FFFFFF 0%,#D8D2E0 60%,#A9A0B8 100%);
+    border:1px solid rgba(40,30,60,.35);
+    box-shadow:0 6px 14px rgba(60,40,90,.3);
+  }
+  .card{
+    position:relative;width:330px;margin-top:12px;
+    padding:20px 20px 22px;
+    border-radius:20px;
+    background:
+      linear-gradient(160deg, #FFFFFF 0%, #FBF7FF 35%, #F1EAF8 75%, #E9E0F2 100%);
+    border:1px solid rgba(60,40,90,.18);
+    transform:perspective(1400px) rotateX(6deg) rotateY(-5deg);
+    box-shadow:
+      0 50px 90px rgba(60,40,90,.35),
+      0 20px 40px rgba(60,40,90,.22),
+      inset 0 1px 0 rgba(255,255,255,.9),
+      inset 0 -1px 0 rgba(60,40,90,.08);
+  }
+  .gloss{
+    position:absolute;inset:0;border-radius:20px;pointer-events:none;
+    background:linear-gradient(115deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.06) 30%, transparent 45%);
+  }
+  .holo{
+    height:24px;border-radius:8px;overflow:hidden;position:relative;
+    background:linear-gradient(90deg,#F2619C,#E78EF8,#93ABD9,#EDE986,#F2619C);
+    background-size:220% 100%;
+    box-shadow:inset 0 0 8px rgba(255,255,255,.6), inset 0 -2px 4px rgba(60,40,90,.12);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-family:'Chakra',sans-serif;font-size:12px;letter-spacing:.22em;
+    text-shadow:0 1px 2px rgba(0,0,0,.25);
+  }
+  .holo::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.7) 50%, transparent 70%);
+    transform:translateX(-100%);animation:shine 3.2s ease-in-out infinite;
+  }
+  @keyframes shine{60%,100%{transform:translateX(100%)}}
+  .photo{
+    position:relative;width:170px;margin:16px auto 0;
+    padding:7px;background:#fff;border-radius:6px;
+    box-shadow:0 14px 30px rgba(60,40,90,.3), 0 4px 10px rgba(60,40,90,.16);
+    transform:rotate(-1.5deg);
+  }
+  .photo img{width:100%;height:165px;object-fit:cover;border-radius:3px;display:block}
+  .photo::after{
+    content:"";position:absolute;inset:7px;border-radius:3px;pointer-events:none;
+    background:linear-gradient(115deg, rgba(255,255,255,.45) 0%, transparent 38%);
+  }
+  .name{
+    margin-top:16px;text-align:center;
+    font-family:'ZKuaile',sans-serif;font-size:31px;color:#2A2233;
+    text-shadow:0 1px 0 rgba(255,255,255,.7);
+  }
+  .en{
+    text-align:center;font-family:'Chakra',sans-serif;font-size:13px;
+    color:#C24D7E;letter-spacing:.18em;margin-top:3px;
+    text-shadow:0 1px 0 rgba(255,255,255,.6);
+  }
+  .meta{
+    margin:14px auto 0;width:max-content;text-align:center;
+    font-size:12.5px;line-height:1.9;color:#3A3344;
+    background:rgba(255,255,255,.75);
+    border-radius:10px;padding:9px 18px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 16px rgba(60,40,90,.12);
+  }
+  .meta b{font-family:'ZKuaile',sans-serif;font-size:14px;color:#C24D7E}
+  .chips{display:flex;justify-content:center;gap:8px;margin-top:13px}
+  .chip{
+    font-family:'ZKuaile',sans-serif;font-size:12px;color:#2A2233;
+    border-radius:999px;padding:5px 13px;
+    box-shadow:0 4px 10px rgba(60,40,90,.18), inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  .chip.pink{background:linear-gradient(180deg,#F67FB2,#F2619C);color:#fff}
+  .chip.lilac{background:linear-gradient(180deg,#EFA8FB,#E78EF8);color:#fff}
+  .chip.lime{background:linear-gradient(180deg,#F4EF9C,#EDE986)}
+  .barcode{display:flex;gap:2px;justify-content:center;margin-top:14px;height:24px;align-items:stretch;opacity:.85}
+  .barcode i{width:3px;background:#2A2233}
+  .barcode i:nth-child(3n){width:1px}
+  .barcode i:nth-child(4n){width:5px}
+  .foot{
+    display:flex;justify-content:space-between;margin-top:9px;
+    font-family:'Chakra',sans-serif;font-size:10px;letter-spacing:.14em;color:#8A7A95;
+  }
+  .st{position:absolute;filter:drop-shadow(0 8px 14px rgba(60,40,90,.25))}
+  .st-star{top:70px;left:-20px;width:34px}
+  .st-heart{top:240px;right:-16px;width:30px}
+  .st-smile{bottom:120px;left:-14px;width:26px}
+  .stamp{
+    position:absolute;bottom:46px;right:-6px;
+    background:rgba(255,255,255,.92);border-radius:9px;
+    font-family:'ZKuaile',sans-serif;font-size:11px;color:#C24D7E;
+    padding:5px 9px;transform:rotate(6deg);
+    box-shadow:0 8px 16px rgba(60,40,90,.22);
+  }
+  .note{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-family:'MaShan',sans-serif;font-size:16px;color:#6B5B80;white-space:nowrap}
+</style>
+</head>
+<body>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+  <div class="scene">
+    <div class="note">「关于我」写实工牌 · 预览</div>
+    <div class="strap"></div>
+    <div class="clip"></div>
+    <div class="card">
+      <div class="gloss"></div>
+      <div class="holo">XINTONG ✦ OS ✦ 2026</div>
+      <div class="photo">
+        <img src="assets/hero1.jpg" alt="盘欣桐">
+      </div>
+      <div class="name">盘欣桐</div>
+      <div class="en">PENNY ✦ PAN</div>
+      <div class="meta">
+        <b>中文系应届毕业生</b><br>
+        一半时间排版做图，一半时间写字表达<br>
+        耳机里永远有歌 ✦ 正在找工作啦！
+      </div>
+      <div class="chips">
+        <span class="chip pink">DESIGN</span>
+        <span class="chip lilac">COPY</span>
+        <span class="chip lime">NEW MEDIA</span>
+      </div>
+      <div class="barcode"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="foot"><span>ID : 0220211107</span><span>EST. 2004</span></div>
+      <svg class="st st-star" viewBox="0 0 64 64"><path fill="#EDE986" stroke="#2A2233" stroke-width="2" d="M32 2 L39 24 L62 24 L44 38 L51 60 L32 47 L13 60 L20 38 L2 24 L25 24 Z"/></svg>
+      <svg class="st st-heart" viewBox="0 0 64 64"><path fill="#F2619C" stroke="#2A2233" stroke-width="2" d="M32 56 C12 42 6 28 14 18 C21 9 32 15 32 15 C32 15 43 9 50 18 C58 28 52 42 32 56 Z"/></svg>
+      <svg class="st st-smile" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#E78EF8" stroke="#2A2233" stroke-width="2"/><circle cx="22" cy="27" r="3.5" fill="#2A2233"/><circle cx="42" cy="27" r="3.5" fill="#2A2233"/><path d="M20 39 Q32 50 44 39" stroke="#2A2233" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+      <div class="stamp">100% REAL GIRL ✦</div>
+    </div>
+  </div>
+</body>
+</html>
